@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.ui.navigation
+package com.vivek.githubapisample
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

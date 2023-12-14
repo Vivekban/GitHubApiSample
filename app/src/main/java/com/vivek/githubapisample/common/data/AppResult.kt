@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.common
+package com.vivek.githubapisample.common.data
 
 import androidx.compose.runtime.Immutable
 import kotlinx.coroutines.flow.Flow

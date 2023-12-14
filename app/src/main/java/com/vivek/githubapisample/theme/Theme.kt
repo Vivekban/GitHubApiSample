@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.ui.theme
+package com.vivek.githubapisample.theme
 
 import android.app.Activity
 import android.os.Build

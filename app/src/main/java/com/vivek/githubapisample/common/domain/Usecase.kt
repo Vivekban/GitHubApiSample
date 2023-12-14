@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.common
+package com.vivek.githubapisample.common.domain
 
 /**
  * An interface that represents a use case.

@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.common
+package com.vivek.githubapisample.common.data
 
 /**
  * Contains various constants used in data layer

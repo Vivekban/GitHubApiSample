@@ -1,7 +1,7 @@
 package com.vivek.githubapisample.user.domain
 
 import com.vivek.githubapisample.api.AppException
-import com.vivek.githubapisample.common.AppResult
+import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.user.data.User
 
 /**

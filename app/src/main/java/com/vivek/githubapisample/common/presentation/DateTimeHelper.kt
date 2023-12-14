@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.ui.common
+package com.vivek.githubapisample.common.presentation
 
 import android.annotation.SuppressLint
 import android.util.Log

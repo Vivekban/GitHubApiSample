@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.ui.common
+package com.vivek.githubapisample.common.presentation
 
 /**
  * Used as a wrapper for data that is exposed via a flow/livedata that represents an event.

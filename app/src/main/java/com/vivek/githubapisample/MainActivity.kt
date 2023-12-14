@@ -5,8 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import com.vivek.githubapisample.home.presentation.HOME_GRAPH_ROUTE
-import com.vivek.githubapisample.ui.navigation.AppNavigationGraph
-import com.vivek.githubapisample.ui.theme.GitHubApiSampleTheme
+import com.vivek.githubapisample.theme.GitHubApiSampleTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

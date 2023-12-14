@@ -1,7 +1,7 @@
 package com.vivek.githubapisample.repo.domain
 
 import androidx.paging.PagingData
-import com.vivek.githubapisample.common.AppResult
+import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.repo.data.Repo
 import kotlinx.coroutines.flow.Flow
 

@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.ui.theme
+package com.vivek.githubapisample.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

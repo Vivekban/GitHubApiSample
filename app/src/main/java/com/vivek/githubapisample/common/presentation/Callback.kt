@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.ui.common
+package com.vivek.githubapisample.common.presentation
 
 /**
  * Type definition for Empty callback - shorthand for () -> Unit

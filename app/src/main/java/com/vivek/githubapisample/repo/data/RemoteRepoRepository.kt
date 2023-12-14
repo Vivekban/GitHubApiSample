@@ -4,9 +4,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.vivek.githubapisample.api.AppException
-import com.vivek.githubapisample.common.AppPagingSource
-import com.vivek.githubapisample.common.AppResult
-import com.vivek.githubapisample.common.DataConstant
+import com.vivek.githubapisample.common.data.AppPagingSource
+import com.vivek.githubapisample.common.data.AppResult
+import com.vivek.githubapisample.common.data.DataConstant
 import com.vivek.githubapisample.repo.domain.RepoRepository
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException

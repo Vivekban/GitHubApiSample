@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.ui.common
+package com.vivek.githubapisample.common.presentation
 
 import com.vivek.githubapisample.R
 import com.vivek.githubapisample.api.AppException

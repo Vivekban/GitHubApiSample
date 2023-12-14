@@ -1,9 +1,9 @@
-package com.vivek.githubapisample.common
+package com.vivek.githubapisample.common.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.vivek.githubapisample.common.DataConstant.ITEMS_PER_PAGE
-import com.vivek.githubapisample.common.DataConstant.STARTING_PAGE_INDEX
+import com.vivek.githubapisample.common.data.DataConstant.ITEMS_PER_PAGE
+import com.vivek.githubapisample.common.data.DataConstant.STARTING_PAGE_INDEX
 import okio.IOException
 import retrofit2.HttpException
 

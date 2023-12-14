@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.repo.di
+package com.vivek.githubapisample.repo.data.di
 
 import com.vivek.githubapisample.repo.data.RemoteRepoRepository
 import com.vivek.githubapisample.repo.data.RepoRemoteSource

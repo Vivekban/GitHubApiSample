@@ -1,7 +1,7 @@
 package com.vivek.githubapisample.api.di
 
 import com.vivek.githubapisample.api.ApiClient
-import com.vivek.githubapisample.common.DataConstant
+import com.vivek.githubapisample.common.data.DataConstant
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

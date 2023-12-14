@@ -17,9 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vivek.githubapisample.repo.data.Repo
-import com.vivek.githubapisample.ui.common.VoidCallback
-import com.vivek.githubapisample.ui.theme.GitHubApiSampleTheme
-import com.vivek.githubapisample.ui.theme.padding
+import com.vivek.githubapisample.common.presentation.VoidCallback
+import com.vivek.githubapisample.theme.GitHubApiSampleTheme
+import com.vivek.githubapisample.theme.padding
 
 /**
  * A composable function that displays a single repository item in a list.

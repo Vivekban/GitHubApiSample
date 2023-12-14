@@ -3,7 +3,7 @@ package com.vivek.githubapisample.repo.presentation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vivek.githubapisample.common.AppResult
+import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.domain.GetRepoUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel

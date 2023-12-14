@@ -1,7 +1,7 @@
-package com.vivek.githubapisample.ui.di
+package com.vivek.githubapisample.common.presentation.di
 
-import com.vivek.githubapisample.ui.common.ConnectivityManagerMonitor
-import com.vivek.githubapisample.ui.common.NetworkMonitor
+import com.vivek.githubapisample.common.presentation.ConnectivityManagerMonitor
+import com.vivek.githubapisample.common.presentation.NetworkMonitor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

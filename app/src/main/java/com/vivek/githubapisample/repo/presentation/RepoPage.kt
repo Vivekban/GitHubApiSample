@@ -43,13 +43,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vivek.githubapisample.R
-import com.vivek.githubapisample.common.AppResult
+import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.repo.data.Repo
-import com.vivek.githubapisample.ui.common.DateTimeUtils
-import com.vivek.githubapisample.ui.common.VoidCallback
-import com.vivek.githubapisample.ui.navigation.NavigationRoute
-import com.vivek.githubapisample.ui.theme.GitHubApiSampleTheme
-import com.vivek.githubapisample.ui.theme.padding
+import com.vivek.githubapisample.common.presentation.DateTimeUtils
+import com.vivek.githubapisample.common.presentation.VoidCallback
+import com.vivek.githubapisample.common.presentation.NavigationRoute
+import com.vivek.githubapisample.theme.GitHubApiSampleTheme
+import com.vivek.githubapisample.theme.padding
 
 /**
  * This route is used by Navigation Graph to show [RepoPage]

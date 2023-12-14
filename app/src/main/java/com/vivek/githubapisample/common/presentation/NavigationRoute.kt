@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.ui.navigation
+package com.vivek.githubapisample.common.presentation
 
 /**
  * A class to represent a navigation destination.

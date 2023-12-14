@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.user.di
+package com.vivek.githubapisample.user.data.di
 
 import com.vivek.githubapisample.user.data.RemoteUserRepository
 import com.vivek.githubapisample.user.data.UserRemoteSource

@@ -1,7 +1,7 @@
 package com.vivek.githubapisample.user.domain
 
-import com.vivek.githubapisample.common.AppResult
-import com.vivek.githubapisample.common.SuspendUsecase
+import com.vivek.githubapisample.common.data.AppResult
+import com.vivek.githubapisample.common.domain.SuspendUsecase
 import com.vivek.githubapisample.user.data.User
 import javax.inject.Inject
 

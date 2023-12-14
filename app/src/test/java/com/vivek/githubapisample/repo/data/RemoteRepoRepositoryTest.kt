@@ -1,8 +1,8 @@
 package com.vivek.githubapisample.repo.data
 
 import com.vivek.githubapisample.api.AppException
-import com.vivek.githubapisample.common.AppResult
-import com.vivek.githubapisample.common.DataConstant
+import com.vivek.githubapisample.common.data.AppResult
+import com.vivek.githubapisample.common.data.DataConstant
 import com.vivek.githubapisample.fake.FakeResponse
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

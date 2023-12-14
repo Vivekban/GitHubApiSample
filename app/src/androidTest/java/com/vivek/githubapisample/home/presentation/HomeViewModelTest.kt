@@ -5,10 +5,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.paging.PagingData
 import app.cash.turbine.test
 import com.vivek.githubapisample.MainCoroutineRule
-import com.vivek.githubapisample.common.AppResult
+import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.domain.GetReposByUsernameUsecase
-import com.vivek.githubapisample.ui.common.NetworkMonitor
+import com.vivek.githubapisample.common.presentation.NetworkMonitor
 import com.vivek.githubapisample.user.data.User
 import com.vivek.githubapisample.user.domain.GetUserInfoUsecase
 import io.mockk.MockKAnnotations

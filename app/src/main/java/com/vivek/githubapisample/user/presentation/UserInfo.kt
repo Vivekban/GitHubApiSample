@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.vivek.githubapisample.home.presentation.HomeRoute
-import com.vivek.githubapisample.ui.theme.GitHubApiSampleTheme
-import com.vivek.githubapisample.ui.theme.padding
+import com.vivek.githubapisample.theme.GitHubApiSampleTheme
+import com.vivek.githubapisample.theme.padding
 import com.vivek.githubapisample.user.data.User
 
 @Composable
