@@ -17,7 +17,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,7 +35,6 @@ import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,10 +42,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vivek.githubapisample.R
 import com.vivek.githubapisample.common.data.AppResult
-import com.vivek.githubapisample.repo.data.Repo
-import com.vivek.githubapisample.common.presentation.DateTimeUtils
-import com.vivek.githubapisample.common.presentation.VoidCallback
 import com.vivek.githubapisample.common.presentation.NavigationRoute
+import com.vivek.githubapisample.common.presentation.VoidCallback
+import com.vivek.githubapisample.common.presentation.helper.DateTimeUtils
+import com.vivek.githubapisample.common.presentation.view.ErrorView
+import com.vivek.githubapisample.common.presentation.view.LoadingView
+import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.theme.GitHubApiSampleTheme
 import com.vivek.githubapisample.theme.padding
 
@@ -84,7 +84,7 @@ fun RepoPage(
                 IconButton(onClick = { onBackClick?.invoke() }) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back"
+                        contentDescription = stringResource(R.string.back)
                     )
                 }
             },
@@ -110,30 +110,14 @@ fun RepoPage(
                     modifier = Modifier.fillMaxSize()
                 )
 
-                is AppResult.Success -> RepoDetail(
-                    repo = state.repo.getOrNull()!!,
-                )
+                is AppResult.Success -> state.repo.getOrNull()?.let {
+                    RepoDetail(
+                        repo = state.repo.getOrNull()!!,
+                    )
+                }
             }
         }
 
-    }
-}
-
-@Composable
-fun LoadingView(modifier: Modifier = Modifier) {
-    Box(modifier = modifier) {
-        CircularProgressIndicator(Modifier.align(Alignment.Center))
-    }
-}
-
-@Composable
-fun ErrorView(title: String, modifier: Modifier = Modifier) {
-    Box(modifier = modifier) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge,
-            textAlign = TextAlign.Center
-        )
     }
 }
 

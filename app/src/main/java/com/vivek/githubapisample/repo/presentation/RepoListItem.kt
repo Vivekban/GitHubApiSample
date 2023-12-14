@@ -15,10 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.common.presentation.VoidCallback
+import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.theme.GitHubApiSampleTheme
+import com.vivek.githubapisample.theme.card
+import com.vivek.githubapisample.theme.elevation
 import com.vivek.githubapisample.theme.padding
 
 /**
@@ -38,7 +39,7 @@ fun RepoListItem(
     Card(
         onClick = { onClick?.invoke() },
         shape = MaterialTheme.shapes.extraSmall,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = MaterialTheme.elevation.card),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background),
         modifier = modifier
             .fillMaxWidth(),

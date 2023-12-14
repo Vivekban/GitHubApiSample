@@ -1,6 +1,5 @@
 package com.vivek.githubapisample.theme
 
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
@@ -37,7 +36,7 @@ object PaddingDefaults {
 internal val LocalPadding = staticCompositionLocalOf { Padding() }
 
 /**
- * Retrieves the current [ColorScheme] at the call site's position in the hierarchy.
+ * Retrieves the current [Padding] at the call site's position in the hierarchy.
  */
 val MaterialTheme.padding: Padding
     @Composable

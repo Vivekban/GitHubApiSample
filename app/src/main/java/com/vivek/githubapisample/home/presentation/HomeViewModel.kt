@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.vivek.githubapisample.common.data.AppResult
+import com.vivek.githubapisample.common.presentation.OneTimeEvent
+import com.vivek.githubapisample.common.presentation.helper.NetworkMonitor
+import com.vivek.githubapisample.common.presentation.helper.toUserFriendlyMessage
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.domain.GetReposByUsernameUsecase
-import com.vivek.githubapisample.common.presentation.NetworkMonitor
-import com.vivek.githubapisample.common.presentation.OneTimeEvent
-import com.vivek.githubapisample.common.presentation.toUserFriendlyMessage
 import com.vivek.githubapisample.user.data.User
 import com.vivek.githubapisample.user.domain.GetUserInfoUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel

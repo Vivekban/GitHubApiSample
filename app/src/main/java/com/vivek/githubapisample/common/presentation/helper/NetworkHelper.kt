@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.common.presentation
+package com.vivek.githubapisample.common.presentation.helper
 
 import android.content.Context
 import android.net.ConnectivityManager

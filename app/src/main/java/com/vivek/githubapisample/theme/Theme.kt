@@ -66,12 +66,16 @@ fun GitHubApiSampleTheme(
     }
 
     val padding = Padding()
+    val elevation = Elevation()
 
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
         content = {
-            CompositionLocalProvider(LocalPadding provides padding) {
+            CompositionLocalProvider(
+                LocalPadding provides padding,
+                LocalElevation provides elevation
+            ) {
                 content()
             }
         }

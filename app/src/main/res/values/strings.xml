@@ -9,4 +9,5 @@
     <string name="error_unknown">Something went wrong</string>
     <string name="error_not_found">Not found</string>
     <string name="no_internet_available">No internet available</string>
+    <string name="back">Back</string>
 </resources>
