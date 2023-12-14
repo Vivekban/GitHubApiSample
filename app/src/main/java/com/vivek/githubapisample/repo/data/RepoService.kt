@@ -7,32 +7,23 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
- * Performs repository related actions like fetching user's repository
+ * Implementation of [RepoRemoteSource] uses retrofit to perform Network operation to
+ * fetch repo related information
  */
-interface RepoService {
+interface RepoService : RepoRemoteSource {
 
-    /**
-     * Provide repositories based on [username]
-     *
-     * @return list of [Repo]
-     */
     @GET("users/{username}/repos")
-    suspend fun getRepositoryByUsername(
+    override suspend fun getRepositoryByUsername(
         @Path("username") username: String,
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
-    ): Response<List<Repo>>
+    ): Response<List<RepoDto>>
 
-    /**
-     * Provide repo detail based on [owner] and [name]
-     *
-     * @return response of [Repo]
-     */
     @GET("repos/{owner}/{name}")
-    suspend fun getRepo(
+    override suspend fun getRepo(
         @Path("owner") owner: String,
         @Path("name") name: String
-    ): Response<Repo>
+    ): Response<RepoDto>
 
     companion object {
         fun create(retrofit: Retrofit): RepoService {

@@ -3,6 +3,11 @@ package com.vivek.githubapisample.ui.common
 import com.vivek.githubapisample.R
 import com.vivek.githubapisample.api.AppException
 
+/**
+ * Converts a Throwable to a user-friendly message.
+ *
+ * @return The resource id of the user-friendly message.
+ */
 fun Throwable.toUserFriendlyMessage(): Int {
 
     if (this is AppException) {

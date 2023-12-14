@@ -56,6 +56,13 @@ import com.vivek.githubapisample.ui.theme.padding
  */
 object RepoRoute : NavigationRoute("repo")
 
+/**
+ * A composable function that displays the details of a repository.
+ *
+ * @param modifier The modifier to apply to the composable.
+ * @param viewModel The view model for the repository.
+ * @param onBackClick The callback to invoke when the user clicks the back button.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RepoPage(

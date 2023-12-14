@@ -20,6 +20,11 @@ interface NetworkMonitor {
     val isOnline: Flow<Boolean>
 }
 
+/**
+ * Monitors the connectivity state of the device.
+ *
+ * @param context The application context.
+ */
 class ConnectivityManagerMonitor @Inject constructor(
     @ApplicationContext private val context: Context
 ) : NetworkMonitor {

@@ -8,6 +8,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+@Suppress("unused")
 class Padding(
     val extraSmall: Dp = PaddingDefaults.ExtraSmall,
     val small: Dp = PaddingDefaults.Small,

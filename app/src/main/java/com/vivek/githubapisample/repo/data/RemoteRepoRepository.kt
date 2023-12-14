@@ -14,9 +14,9 @@ import java.io.IOException
 import javax.inject.Inject
 
 /**
- * Implementation of UserService uses remote source to fetch User information
+ * Implementation of [RepoRepository] uses [RepoRemoteSource] to fetch Repo related information
  */
-class RemoteRepoRepository @Inject constructor(private val service: RepoService) :
+class RemoteRepoRepository @Inject constructor(private val remote: RepoRemoteSource) :
     RepoRepository {
 
     override suspend fun getRepositoryByUsername(
@@ -26,8 +26,8 @@ class RemoteRepoRepository @Inject constructor(private val service: RepoService)
         val pagingSourceFactory = {
             object : AppPagingSource<Repo>() {
                 override suspend fun loadItems(page: Int, params: LoadParams<Int>): List<Repo> {
-                    return service.getRepositoryByUsername(username, page, params.loadSize)
-                        .body() ?: emptyList()
+                    return remote.getRepositoryByUsername(username, page, params.loadSize)
+                        .body()?.map { it.toModel() } ?: emptyList()
                 }
             }
         }
@@ -46,11 +46,11 @@ class RemoteRepoRepository @Inject constructor(private val service: RepoService)
 
     override suspend fun getRepo(name: String, owner: String): AppResult<Repo> {
         return try {
-            val repo = service.getRepo(owner, name)
-            repo.body()?.let { sUser -> AppResult.Success(sUser) }
-                ?: AppResult.Error(AppException.Unknown())
+            val repo = remote.getRepo(owner, name)
+            repo.body()?.let { sUser -> AppResult.Success(sUser.toModel()) }
+                ?: AppResult.Error(AppException.NotFound())
         } catch (e: HttpException) {
-            AppResult.Error(AppException.NotFound(e))
+            AppResult.Error(AppException.Unknown(e))
         } catch (e: IOException) {
             AppResult.Error(AppException.NoNetwork())
         }

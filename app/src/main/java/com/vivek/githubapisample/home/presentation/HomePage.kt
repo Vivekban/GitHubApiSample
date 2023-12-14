@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -232,7 +233,11 @@ fun UserNameField(
             colors = TextFieldDefaults.colors(
                 focusedLabelColor = MaterialTheme.colorScheme.tertiary,
                 focusedIndicatorColor = MaterialTheme.colorScheme.tertiary,
-                cursorColor = MaterialTheme.colorScheme.tertiary
+                cursorColor = MaterialTheme.colorScheme.tertiary,
+                selectionColors = TextSelectionColors(
+                    MaterialTheme.colorScheme.tertiary,
+                    MaterialTheme.colorScheme.tertiary.copy(alpha = 0.4f)
+                )
             )
         )
         Spacer(modifier = Modifier.width(MaterialTheme.padding.medium))

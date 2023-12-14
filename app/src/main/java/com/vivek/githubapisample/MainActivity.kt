@@ -9,6 +9,9 @@ import com.vivek.githubapisample.ui.navigation.AppNavigationGraph
 import com.vivek.githubapisample.ui.theme.GitHubApiSampleTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * The main activity of the app.
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

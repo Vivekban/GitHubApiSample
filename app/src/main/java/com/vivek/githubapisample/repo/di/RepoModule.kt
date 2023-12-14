@@ -1,6 +1,7 @@
 package com.vivek.githubapisample.repo.di
 
 import com.vivek.githubapisample.repo.data.RemoteRepoRepository
+import com.vivek.githubapisample.repo.data.RepoRemoteSource
 import com.vivek.githubapisample.repo.data.RepoService
 import com.vivek.githubapisample.repo.domain.RepoRepository
 import dagger.Binds
@@ -26,6 +27,10 @@ class RepoServiceModule {
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class RepoModule {
+
+    @Singleton
+    @Binds
+    abstract fun provideRepoService(repoService: RepoService): RepoRemoteSource
 
     @Singleton
     @Binds

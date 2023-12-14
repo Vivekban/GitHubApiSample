@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,6 +21,13 @@ import com.vivek.githubapisample.ui.common.VoidCallback
 import com.vivek.githubapisample.ui.theme.GitHubApiSampleTheme
 import com.vivek.githubapisample.ui.theme.padding
 
+/**
+ * A composable function that displays a single repository item in a list.
+ *
+ * @param repo The repository to display.
+ * @param modifier The modifier to apply to the item.
+ * @param onClick The callback to invoke when the item is clicked.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RepoListItem(
@@ -46,7 +54,8 @@ fun RepoListItem(
             if (description.isNotEmpty())
                 Text(
                     text = description,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.testTag("description")
                 )
 
         }

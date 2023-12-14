@@ -7,17 +7,17 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import retrofit2.HttpException
 import retrofit2.Response
 
 class RemoteUserRepositoryTest {
 
     private val userName = "vivek"
     private val user = User.fake()
+    private val userDto = UserDto.fake()
+
 
     @MockK
     private lateinit var userService: UserService
@@ -33,7 +33,7 @@ class RemoteUserRepositoryTest {
     @Test
     fun `fetchUserInfo() should return success when user is found`() {
         // Arrange
-        coEvery { userService.getUserInfo(userName) } returns Response.success(user)
+        coEvery { userService.getUserInfo(userName) } returns Response.success(userDto)
 
         // Act
         val result = runBlocking { sut.fetchUserInfo(userName) }

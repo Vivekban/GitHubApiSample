@@ -18,11 +18,12 @@ class UserInfoTest {
     @Test
     fun userInfoShouldDisplaysAvatarAndDescription() {
 
-        // Compose the UserInfo composable
+        // Arrange
         composeTestRule.setContent {
             UserInfo(user)
         }
 
+        // Assert
         composeTestRule.onNodeWithText(user.displayName).assertIsDisplayed()
         composeTestRule.onNodeWithTag("image").assertIsDisplayed()
     }

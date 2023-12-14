@@ -151,22 +151,6 @@ downloaded from [here](https://developer.android.com/studio/).
 - Start Android Studio
 - Run Application
 
-# Performance
-
-## Compose compiler metrics
-
-Run the following command to get and analyse compose compiler metrics:
-
-```bash
-./gradlew assembleRelease -PcomposeCompilerMetrics=true -PcomposeCompilerReports=true
-```
-
-The reports files will be added to [app/build/compose-reports](app/build/compose-reports). The
-metrics files will also be
-added to [app/build/compose-metrics](app/build/compose-metrics).
-
-For more information on Compose compiler metrics,
-see [this blog post](https://medium.com/androiddevelopers/jetpack-compose-stability-explained-79c10db270c8).
 
 ## Todo
 

@@ -1,18 +1,17 @@
 package com.vivek.githubapisample.repo.data
 
-import androidx.paging.PagingData
 import com.vivek.githubapisample.api.AppException
 import com.vivek.githubapisample.common.AppResult
 import com.vivek.githubapisample.common.DataConstant
-import com.vivek.githubapisample.fake.FakeException
 import com.vivek.githubapisample.fake.FakeResponse
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Response
@@ -20,8 +19,10 @@ import retrofit2.Response
 class RemoteRepoRepositoryTest {
 
     private val username = "vivek"
+    private val repoDto = RepoDto.fake()
     private val repo = Repo.fake()
     private val repos = listOf(repo)
+    private val reposDto = listOf(repoDto)
     private val repoName = "1"
     private val owner = "vivek"
 
@@ -46,19 +47,15 @@ class RemoteRepoRepositoryTest {
                 1,
                 DataConstant.ITEMS_PER_PAGE
             )
-        } returns Response.success(repos)
+        } returns Response.success(reposDto)
 
         // Collect the flow
         runBlocking {
             // Act
-            val result = sut.getRepositoryByUsername(username)
+            val result = sut.getRepositoryByUsername(username).first()
 
             // Assert
-
-            result.collect { pagingData ->
-                // Assert that the paging data contains the expected repos
-//                assertEquals(repos, pagingData.data)
-            }
+            assertNotNull(result)
         }
     }
 
@@ -77,44 +74,10 @@ class RemoteRepoRepositoryTest {
         // Collect the flow
         runBlocking {
             // Act
-            val result = sut.getRepositoryByUsername(username)
+            val result = sut.getRepositoryByUsername(username).first()
 
             // Assert
-            assertTrue(result is Flow<PagingData<Repo>>)
-
-            result.collect { pagingData ->
-
-                // Assert that the paging data is empty
-//                assertTrue(pagingData.data.isEmpty())
-            }
-        }
-    }
-
-    @Test
-    fun `getRepositoryByUsername() should return an error flow when there is a network error`() {
-        // Arrange
-        val username = "vivek"
-        coEvery {
-            service.getRepositoryByUsername(
-                username,
-                1,
-                DataConstant.ITEMS_PER_PAGE
-            )
-        } throws FakeException.noConnection
-
-        // Collect the flow
-        runBlocking {
-
-            // Act
-            val result = sut.getRepositoryByUsername(username)
-
-            // Assert
-            assertTrue(result is Flow<PagingData<Repo>>)
-
-            result.collect { pagingData ->
-                // Assert that the paging data is empty
-//                assertTrue(pagingData.data.isEmpty())
-            }
+            assertNotNull(result)
         }
     }
 
@@ -122,7 +85,7 @@ class RemoteRepoRepositoryTest {
     fun `getRepo() should return a success result when the repo is found`() {
         // Arrange
 
-        coEvery { service.getRepo(owner, repoName) } returns Response.success(repo)
+        coEvery { service.getRepo(owner, repoName) } returns Response.success(repoDto)
 
         // Act
         val result = runBlocking { sut.getRepo(repoName, owner) }

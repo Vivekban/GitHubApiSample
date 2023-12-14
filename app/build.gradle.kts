@@ -50,6 +50,11 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+        unitTests.isIncludeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -61,9 +66,6 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
-
-    // Status bar
-    implementation(libs.accompanist.systemuicontroller)
 
     // Navigation
     implementation(libs.navigation.compose)
@@ -85,10 +87,9 @@ dependencies {
 
     // Dagger - Hilt for dependency injection
     implementation(libs.hilt.android)
-    ksp(libs.dagger.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
-    kspTest(libs.dagger.hilt.android.compiler)
 
     // Retrofit
     implementation(libs.logging.interceptor)
@@ -103,12 +104,24 @@ dependencies {
     // Unit Testing
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
+
+    kspTest(libs.hilt.android.compiler)
 
     // Integration Testing
     androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.arch.core.testing)
+
+    androidTestImplementation(libs.espresso.contrib)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.espresso.intents)
+
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.android.compiler)
 
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)

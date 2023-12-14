@@ -8,7 +8,7 @@ import retrofit2.http.Path
 /**
  * Performs user related actions like fetching user information
  */
-interface UserService {
+interface UserService : UserRemoteSource {
 
     /**
      * Provide user information based on [username]
@@ -16,9 +16,9 @@ interface UserService {
      * @return response of [User]
      */
     @GET("users/{username}")
-    suspend fun getUserInfo(
+    override suspend fun getUserInfo(
         @Path("username") username: String
-    ): Response<User>
+    ): Response<UserDto>
 
     companion object {
         fun create(retrofit: Retrofit): UserService {

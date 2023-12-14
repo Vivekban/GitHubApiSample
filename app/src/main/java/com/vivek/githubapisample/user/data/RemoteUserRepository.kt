@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Implementation of [UserRepository] uses remote source to fetch User information
  */
-class RemoteUserRepository @Inject constructor(private val userService: UserService) :
+class RemoteUserRepository @Inject constructor(private val remote: UserRemoteSource) :
     UserRepository {
 
     /**
@@ -21,9 +21,9 @@ class RemoteUserRepository @Inject constructor(private val userService: UserServ
      */
     override suspend fun fetchUserInfo(userName: String): AppResult<User> {
         return try {
-            val userResponse = userService.getUserInfo(userName)
+            val userResponse = remote.getUserInfo(userName)
 
-            userResponse.body()?.let { user -> AppResult.Success(user) }
+            userResponse.body()?.let { user -> AppResult.Success(user.toModel()) }
                 ?: AppResult.Error(AppException.NotFound())
 
         } catch (e: HttpException) {

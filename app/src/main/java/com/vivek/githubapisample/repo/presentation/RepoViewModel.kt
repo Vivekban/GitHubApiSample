@@ -23,9 +23,9 @@ class RepoViewModel @Inject constructor(
     private val getRepoUsecase: GetRepoUsecase,
 ) : ViewModel() {
 
-    private val _name: String = savedStateHandle.get<String>(REPO_NANE_KEY)!!
+    private val _name: String = savedStateHandle.get<String>(REPO_NANE_KEY) ?: ""
 
-    private val _owner: String = savedStateHandle.get<String>(REPO_OWNER_KEY)!!
+    private val _owner: String = savedStateHandle.get<String>(REPO_OWNER_KEY) ?: ""
 
     private val _repoFlow =
         flow { emit(getRepoUsecase(GetRepoUsecase.Param(_name, _owner))) }.onStart {
@@ -54,5 +54,8 @@ class RepoViewModel @Inject constructor(
  *  State of Repo Detail
  */
 data class RepoUiState(
+    /**
+     * Contains detail of a repo.
+     */
     val repo: AppResult<Repo> = AppResult.Loading
 )

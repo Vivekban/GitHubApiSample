@@ -1,6 +1,7 @@
 package com.vivek.githubapisample.user.di
 
 import com.vivek.githubapisample.user.data.RemoteUserRepository
+import com.vivek.githubapisample.user.data.UserRemoteSource
 import com.vivek.githubapisample.user.data.UserService
 import com.vivek.githubapisample.user.domain.UserRepository
 import dagger.Binds
@@ -26,6 +27,9 @@ class UserServiceModule {
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class UserModule {
+    @Singleton
+    @Binds
+    abstract fun provideRepoService(userService: UserService): UserRemoteSource
 
     @Singleton
     @Binds
