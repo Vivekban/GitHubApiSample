@@ -56,7 +56,7 @@ class HomeViewModel @Inject constructor(
         /**
          * Key for last search username
          */
-        private const val USER_NAME_KEY = "user_name"
+        const val USER_NAME_KEY = "user_name"
     }
 
     /**

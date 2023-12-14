@@ -21,7 +21,6 @@ class RemoteRepoRepositoryTest {
     private val username = "vivek"
     private val repoDto = RepoDto.fake()
     private val repo = Repo.fake()
-    private val repos = listOf(repo)
     private val reposDto = listOf(repoDto)
     private val repoName = "1"
     private val owner = "vivek"

@@ -99,21 +99,35 @@ structure in Android:
 
 # Testing
 
+Test-Driven Development (TDD): It is a software development approach where tests are written before
+the actual code is developed. The process follows a cycle: write a test, run the test (which
+initially fails since the code isn't implemented yet), implement the code to pass the test, and then
+refactor the code if needed.
+
+This is used for data and domain layer
+
+Feature-Driven Development (FDD): It is an iterative and incremental software development
+methodology. It focuses on building features or functionality in short cycles, typically two weeks.
+FDD is driven by client-valued features, and the development process is organized around these
+features.
+
+This is used for presentation layer
+
 Testing an Android application typically involves a combination of different testing approaches to
 ensure the reliability, functionality, and performance of the app.
 
-| Testing Approach                     | Objective                                                                         | Tools                                   | Status  |
-|--------------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------|---------|
-| **Unit Testing**                     | Verify individual units (methods/functions) in isolation.                         | JUnit, Mockito, Robolectric             | Done    |
-| **Integration Testing**              | Validate interaction between different components/modules.                        | AndroidJUnitRunner, Espresso            | Pending |
-| **Functional Testing**               | Ensure app features work as intended from the user's perspective.                 | Espresso, UI Automator                  | Pending |
-| **UI Testing**                       | Verify correctness of the app's user interface.                                   | Espresso, UI Automator                  | Done    |
-| **End-to-End (E2E) Testing**         | Simulate real user scenarios and test the entire application flow.                | Appium, Detox                           | Pending |
-| **Performance Testing**              | Assess app performance, responsiveness, and resource usage.                       | Android Profiler, third-party tools     | Pending |
-| **Security Testing**                 | Identify and address vulnerabilities that could compromise security.              | Static analysis tools, dynamic tools    | Pending |
-| **Accessibility Testing**            | Ensure app accessibility for users with disabilities.                             | Android Accessibility Scanner, TalkBack | Pending |
-| **Device and Configuration Testing** | Validate app behavior on different devices and configurations.                    | Firebase Test Lab, device emulators     | Pending |
-| **Robustness Testing**               | Assess app's ability to handle unexpected inputs, errors, and adverse conditions. | -                                       | Pending |
+| Testing Approach                     | Objective                                                                         | Tools                                   | Status      |
+|--------------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------|-------------|
+| **Unit Testing**                     | Verify individual units (methods/functions) in isolation.                         | JUnit, Mockito, Robolectric             | Done        |
+| **Integration Testing**              | Validate interaction between different components/modules.                        | AndroidJUnitRunner, Espresso            | Pending     |
+| **Functional Testing**               | Ensure app features work as intended from the user's perspective.                 | Espresso, UI Automator                  | Pending     |
+| **UI Testing**                       | Verify correctness of the app's user interface.                                   | Espresso, UI Automator                  | In progress |
+| **End-to-End (E2E) Testing**         | Simulate real user scenarios and test the entire application flow.                | Appium, Detox                           | Pending     |
+| **Performance Testing**              | Assess app performance, responsiveness, and resource usage.                       | Android Profiler, third-party tools     | Pending     |
+| **Security Testing**                 | Identify and address vulnerabilities that could compromise security.              | Static analysis tools, dynamic tools    | Pending     |
+| **Accessibility Testing**            | Ensure app accessibility for users with disabilities.                             | Android Accessibility Scanner, TalkBack | Pending     |
+| **Device and Configuration Testing** | Validate app behavior on different devices and configurations.                    | Firebase Test Lab, device emulators     | Pending     |
+| **Robustness Testing**               | Assess app's ability to handle unexpected inputs, errors, and adverse conditions. | -                                       | Pending     |
 
 ## Built With
 
@@ -150,7 +164,6 @@ downloaded from [here](https://developer.android.com/studio/).
 
 - Start Android Studio
 - Run Application
-
 
 ## Todo
 
