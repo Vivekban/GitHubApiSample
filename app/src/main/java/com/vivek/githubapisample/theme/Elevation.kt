@@ -19,13 +19,13 @@ val Elevation.card: Dp
     get() = medium
 
 object ElevationDefaults {
-    /** Extra small sized padding */
+    /** Low elevation */
     val Low: Dp = 4.dp
 
-    /** Medium sized padding */
+    /** Medium elevation */
     val Medium: Dp = 8.dp
 
-    /** Large sized padding */
+    /** Large elevation */
     val High: Dp = 12.dp
 
 }
@@ -35,6 +35,7 @@ internal val LocalElevation = staticCompositionLocalOf { Elevation() }
 /**
  * Retrieves the current [ColorScheme] at the call site's position in the hierarchy.
  */
+@Suppress("UnusedReceiverParameter")
 val MaterialTheme.elevation: Elevation
     @Composable
     @ReadOnlyComposable

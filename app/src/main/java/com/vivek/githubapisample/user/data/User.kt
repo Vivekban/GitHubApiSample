@@ -6,19 +6,13 @@ package com.vivek.githubapisample.user.data
 data class User(
     val id: Int,
 
-    /**
-     * Name of user
-     */
+    /** Name of user */
     val name: String?,
 
-    /**
-     * Avatar url of user
-     */
+    /** Avatar url of user */
     val avatarUrl: String?,
 
-    /**
-     * Login name of the user. Used for fetching particular repo detail
-     */
+    /** Login name of the user. Used for fetching particular repo detail */
     val login: String? = null
 ) {
     /**

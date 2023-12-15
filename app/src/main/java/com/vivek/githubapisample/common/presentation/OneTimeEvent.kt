@@ -1,8 +1,8 @@
 package com.vivek.githubapisample.common.presentation
 
 /**
- * Used as a wrapper for data that is exposed via a flow/livedata that represents an event.
  * This is typically used for one-time events like navigation and showing Snackbar messages.
+ * Once its handled, it will not be handled again.
  */
 open class OneTimeEvent<out T>(private val content: T) {
 
@@ -23,5 +23,6 @@ open class OneTimeEvent<out T>(private val content: T) {
     /**
      * Returns the content, even if it's already been handled.
      */
+    @Suppress("unused")
     fun peekContent(): T = content
 }

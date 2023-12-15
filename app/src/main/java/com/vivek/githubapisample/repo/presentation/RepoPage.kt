@@ -36,7 +36,6 @@ import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -44,17 +43,20 @@ import com.vivek.githubapisample.R
 import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.common.presentation.NavigationRoute
 import com.vivek.githubapisample.common.presentation.VoidCallback
+import com.vivek.githubapisample.common.presentation.component.Error
+import com.vivek.githubapisample.common.presentation.component.Loading
 import com.vivek.githubapisample.common.presentation.helper.DateTimeUtils
-import com.vivek.githubapisample.common.presentation.view.ErrorView
-import com.vivek.githubapisample.common.presentation.view.LoadingView
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.theme.GitHubApiSampleTheme
+import com.vivek.githubapisample.theme.iconSize
 import com.vivek.githubapisample.theme.padding
 
 /**
  * This route is used by Navigation Graph to show [RepoPage]
  */
 object RepoRoute : NavigationRoute("repo")
+
+private const val MINIMUM_FORKS_FOR_BADGE = 5000
 
 /**
  * A composable function that displays the details of a repository.
@@ -104,8 +106,8 @@ fun RepoPage(
                 .padding(MaterialTheme.padding.medium)
         ) {
             when (state.repo) {
-                is AppResult.Loading -> LoadingView(modifier = Modifier.fillMaxSize())
-                is AppResult.Error -> ErrorView(
+                is AppResult.Loading -> Loading(modifier = Modifier.fillMaxSize())
+                is AppResult.Error -> Error(
                     title = stringResource(R.string.error_repo_fetch),
                     modifier = Modifier.fillMaxSize()
                 )
@@ -123,7 +125,7 @@ fun RepoPage(
 
 @Composable
 fun RepoDetail(repo: Repo, modifier: Modifier = Modifier) {
-    val showBadge = (repo.forks ?: 0) >= 5000
+    val showBadge = (repo.forks ?: 0) >= MINIMUM_FORKS_FOR_BADGE
     val badgeId = "badge"
     val text = buildAnnotatedString {
         append(repo.name)
@@ -151,17 +153,17 @@ fun RepoDetail(repo: Repo, modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val description = repo.displayDescription
-        Spacer(modifier = Modifier.height(MaterialTheme.padding.medium))
+        Spacer(modifier = Modifier.height(MaterialTheme.padding.small))
         Text(
             text = text,
             inlineContent = inlineContent,
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(MaterialTheme.padding.medium))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 Icons.Default.Build,
-                modifier = Modifier.size(MaterialTheme.padding.medium),
+                modifier = Modifier.size(MaterialTheme.iconSize.small),
                 contentDescription = ""
             )
             Spacer(modifier = Modifier.width(MaterialTheme.padding.small))
@@ -171,12 +173,12 @@ fun RepoDetail(repo: Repo, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.width(MaterialTheme.padding.medium))
             Icon(
                 Icons.Default.DateRange,
-                modifier = Modifier.size(MaterialTheme.padding.medium),
+                modifier = Modifier.size(MaterialTheme.iconSize.small),
                 contentDescription = ""
             )
             Spacer(modifier = Modifier.width(MaterialTheme.padding.small))
             Text(
-                text = DateTimeUtils.getDayWithMonthName(repo.updatedAt) ?: "",
+                text = DateTimeUtils.getOnlyDate(repo.updatedAt) ?: "",
             )
         }
 

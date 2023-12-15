@@ -17,6 +17,7 @@ data class Repo(
 
     val updatedAt: String?
 ) {
+    /** Safe description for UI returns empty if null */
     var displayDescription = description ?: ""
 
     companion object {

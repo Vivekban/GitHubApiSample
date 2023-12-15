@@ -47,10 +47,10 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.vivek.githubapisample.R
 import com.vivek.githubapisample.common.data.AppResult
+import com.vivek.githubapisample.common.presentation.NavigationRoute
+import com.vivek.githubapisample.common.presentation.ValueCallback
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.presentation.RepoListItem
-import com.vivek.githubapisample.common.presentation.ValueCallback
-import com.vivek.githubapisample.common.presentation.NavigationRoute
 import com.vivek.githubapisample.theme.GitHubApiSampleTheme
 import com.vivek.githubapisample.theme.padding
 import com.vivek.githubapisample.user.data.User
@@ -63,6 +63,13 @@ import java.util.Locale
  */
 object HomeRoute : NavigationRoute("home")
 
+/**
+ * The home page of the app which contains UserNameField, UserInfo and RepoList.
+ *
+ * @param onRepoClick A callback that is called when a repo is clicked.
+ * @param modifier The modifier to apply to the page.
+ * @param homeViewModel The view model for the page.
+ */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HomePage(
@@ -93,6 +100,16 @@ fun HomePage(
 
 }
 
+/**
+ * The home page of the app.
+ *
+ * @param state The state of the home page.
+ * @param repos The list of repositories.
+ * @param modifier The modifier to apply to the page.
+ * @param onUsernameChange The callback to call when the username changes.
+ * @param onSearchClick The callback to call when the search button is clicked.
+ * @param onRepoClick The callback to call when a repository is clicked.
+ */
 @Composable
 fun HomePage(
     state: HomeUiState,

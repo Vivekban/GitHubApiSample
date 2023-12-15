@@ -24,7 +24,6 @@ interface RepoRemoteSource {
      *
      * @return response of [Repo]
      */
-
     suspend fun getRepo(owner: String, name: String): Response<RepoDto>
 
 }

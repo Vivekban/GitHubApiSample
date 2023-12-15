@@ -1,7 +1,10 @@
 package com.vivek.githubapisample.common.presentation
 
 /**
- * A class to represent a navigation destination.
+ * A class to represent a navigation destination. It will be used to navigate between screens.
+ *
+ * @property route The route to navigate to.
+ * @property title The title of the route.
  */
 open class NavigationRoute(
     /**

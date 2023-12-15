@@ -67,6 +67,7 @@ fun GitHubApiSampleTheme(
 
     val padding = Padding()
     val elevation = Elevation()
+    val iconSize = IconSize()
 
     MaterialTheme(
         colorScheme = colorScheme,
@@ -74,7 +75,8 @@ fun GitHubApiSampleTheme(
         content = {
             CompositionLocalProvider(
                 LocalPadding provides padding,
-                LocalElevation provides elevation
+                LocalElevation provides elevation,
+                LocalIconSize provides iconSize
             ) {
                 content()
             }

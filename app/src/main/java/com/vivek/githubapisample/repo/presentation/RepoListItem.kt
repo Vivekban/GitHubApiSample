@@ -50,7 +50,8 @@ fun RepoListItem(
                 text = repo.name,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
             )
-            if (description.isNotEmpty()) Spacer(modifier = Modifier.height(MaterialTheme.padding.medium))
+            if (description.isNotEmpty())
+                Spacer(modifier = Modifier.height(MaterialTheme.padding.medium))
 
             if (description.isNotEmpty())
                 Text(

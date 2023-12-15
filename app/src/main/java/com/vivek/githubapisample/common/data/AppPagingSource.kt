@@ -14,16 +14,21 @@ abstract class AppPagingSource<V : Any> : PagingSource<Int, V>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, V> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
+            // fetch items
             val items = loadItems(page, params)
-            val nextKey = if (items.isEmpty()) {
-                null
-            } else {
-                // initial load size = 3 * NETWORK_PAGE_SIZE
-                // ensure we're not requesting duplicating items, at the 2nd request
-                page + (params.loadSize / ITEMS_PER_PAGE)
+
+            // determine next key
+            val nextKey = when (items.isEmpty()) {
+                true -> null
+                false -> {
+                    // initial load size = 3 * NETWORK_PAGE_SIZE
+                    // ensure we're not requesting duplicating items, at the 2nd request
+                    page + (params.loadSize / ITEMS_PER_PAGE)
+                }
             }
             LoadResult.Page(
                 data = items,
+                // null if first page otherwise page - 1
                 prevKey = if (page <= STARTING_PAGE_INDEX) null else page - 1,
                 nextKey = nextKey
             )
@@ -34,6 +39,12 @@ abstract class AppPagingSource<V : Any> : PagingSource<Int, V>() {
         }
     }
 
+    /**
+     * Load items based on page number and load params.
+     *
+     * @param page page number
+     * @param params load params
+     */
     abstract suspend fun loadItems(page: Int, params: LoadParams<Int>): List<V>
 
     override fun getRefreshKey(state: PagingState<Int, V>): Int? {
