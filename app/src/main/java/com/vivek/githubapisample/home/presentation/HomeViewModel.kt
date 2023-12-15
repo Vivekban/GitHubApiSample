@@ -80,7 +80,14 @@ class HomeViewModel @Inject constructor(
      */
     private val _userFlow = _usernameFlow
         // check name is valid
-        .filter { it.isNotEmpty() }
+        .filter {
+            // Added check for test
+            try {
+                it.isNotEmpty()
+            } catch (e: NullPointerException) {
+                false
+            }
+        }
         // check if username is changed
         .distinctUntilChanged().map {
             getUserInfoUsecase(GetUserInfoUsecase.Param(it))
