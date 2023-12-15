@@ -53,6 +53,11 @@ android {
         }
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
+    @Suppress("UnstableApiUsage")
     testOptions {
         unitTests.isReturnDefaultValues = true
         unitTests.isIncludeAndroidResources = true

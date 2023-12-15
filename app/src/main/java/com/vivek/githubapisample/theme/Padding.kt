@@ -38,6 +38,7 @@ internal val LocalPadding = staticCompositionLocalOf { Padding() }
 /**
  * Retrieves the current [Padding] at the call site's position in the hierarchy.
  */
+@Suppress("UnusedReceiverParameter")
 val MaterialTheme.padding: Padding
     @Composable
     @ReadOnlyComposable
