@@ -9,11 +9,26 @@ import kotlinx.coroutines.flow.onStart
 /**
  * A generic class that holds a value with its loading status.
  */
+@Immutable
 sealed class AppResult<out T> {
+    /**
+     * Represents a successful outcome.
+     *
+     * @param data The encapsulated value.
+     */
     data class Success<T>(val data: T) : AppResult<T>()
 
-    @Immutable
+    /**
+     * Represents a failed outcome.
+     *
+     * @param exception The encapsulated [Throwable] exception.
+     */
+
     data class Error(val exception: Throwable? = null) : AppResult<Nothing>()
+
+    /**
+     * Represents a loading state.
+     */
     data object Loading : AppResult<Nothing>()
 
     /**
@@ -21,6 +36,7 @@ sealed class AppResult<out T> {
      */
     fun isSuccess(): Boolean = this is Success
 
+    @Suppress("unused")
     /**
      * Returns `true` if this instance represents a failed outcome.
      */
@@ -55,6 +71,7 @@ sealed class AppResult<out T> {
         }
 }
 
+@Suppress("unused")
 fun <T> Flow<T>.asResult(): Flow<AppResult<T>> {
     return this
         .map<T, AppResult<T>> {
