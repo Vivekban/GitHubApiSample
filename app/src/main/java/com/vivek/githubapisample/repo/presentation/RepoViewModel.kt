@@ -19,8 +19,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class RepoViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
     private val getRepoUsecase: GetRepoUsecase,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val _name: String = savedStateHandle.get<String>(REPO_NANE_KEY) ?: ""
@@ -44,8 +44,8 @@ class RepoViewModel @Inject constructor(
     )
 
     companion object {
-        private const val REPO_NANE_KEY = "name"
-        private const val REPO_OWNER_KEY = "owner"
+        const val REPO_NANE_KEY = "name"
+        const val REPO_OWNER_KEY = "owner"
     }
 
 }
