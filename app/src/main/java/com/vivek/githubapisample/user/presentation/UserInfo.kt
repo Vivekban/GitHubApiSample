@@ -22,6 +22,12 @@ import com.vivek.githubapisample.theme.GitHubApiSampleTheme
 import com.vivek.githubapisample.theme.padding
 import com.vivek.githubapisample.user.data.User
 
+/**
+ * A composable function that displays user information.
+ *
+ * @param user The user to display information for.
+ * @param modifier The modifier to apply to the composable.
+ */
 @Composable
 fun UserInfo(
     user: User,

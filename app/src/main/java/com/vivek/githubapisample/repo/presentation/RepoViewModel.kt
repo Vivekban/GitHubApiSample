@@ -15,7 +15,11 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 /**
- * The ViewModel used in RepoDetail.
+ * A ViewModel for the repository details screen.
+ *
+ * The ViewModel is initialized with the name and owner of the repository as arguments.
+ * These arguments are passed to the [GetRepoUsecase] to fetch the repository details.
+ *
  */
 @HiltViewModel
 class RepoViewModel @Inject constructor(
@@ -33,7 +37,7 @@ class RepoViewModel @Inject constructor(
         }
 
     /**
-     * Expose [RepoUiState]
+     * Expose [RepoUiState] which basically contains information related to the repo.
      */
     val state = _repoFlow.map { repo ->
         RepoUiState(repo = repo)

@@ -1,4 +1,4 @@
-package com.vivek.githubapisample.common.presentation.view
+package com.vivek.githubapisample.common.presentation.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator
@@ -8,8 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.vivek.githubapisample.theme.GitHubApiSampleTheme
 
+/**
+ * A composable function that displays a loading view.
+ *
+ * @param modifier The modifier to apply to the loading view.
+ */
 @Composable
-fun LoadingView(modifier: Modifier = Modifier) {
+fun Loading(modifier: Modifier = Modifier) {
     Box(modifier = modifier) {
         CircularProgressIndicator(Modifier.align(Alignment.Center))
     }
@@ -17,8 +22,8 @@ fun LoadingView(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun LoadingViewPreview() {
+fun LoadingPreview() {
     GitHubApiSampleTheme {
-        LoadingView()
+        Loading()
     }
 }
