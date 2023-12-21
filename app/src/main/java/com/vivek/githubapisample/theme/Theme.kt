@@ -40,10 +40,18 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+/**
+ * A theme for the GitHub API sample app.
+ *
+ * This theme uses the Material 3 design system.
+ *
+ * @param darkTheme Whether to use the dark theme default is by android system.
+ * @param dynamicColor Whether to use dynamic color, default is false.
+ * @param content The content to display.
+ */
 @Composable
 fun GitHubApiSampleTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {

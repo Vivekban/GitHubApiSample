@@ -7,6 +7,15 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * A class that represents padding values used in app.
+ *
+ * @property extraSmall The extra small padding value.
+ * @property small The small padding value.
+ * @property medium The medium padding value.
+ * @property large The large padding value.
+ * @property extraLarge The extra large padding value.
+ */
 @Suppress("unused")
 class Padding(
     val extraSmall: Dp = PaddingDefaults.ExtraSmall,
@@ -16,6 +25,7 @@ class Padding(
     val extraLarge: Dp = PaddingDefaults.ExtraLarge,
 )
 
+/** Default values for padding. */
 object PaddingDefaults {
     /** Extra small sized padding */
     val ExtraSmall: Dp = 4.dp
@@ -33,10 +43,13 @@ object PaddingDefaults {
     val ExtraLarge: Dp = 24.dp
 }
 
+/**
+ * CompositionLocal used to pass [Padding] down the tree.
+ */
 internal val LocalPadding = staticCompositionLocalOf { Padding() }
 
 /**
- * Retrieves the current [Padding] at the call site's position in the hierarchy.
+ * Helper method which retrieves the current [Padding] at the call site's position in the hierarchy.
  */
 @Suppress("UnusedReceiverParameter")
 val MaterialTheme.padding: Padding

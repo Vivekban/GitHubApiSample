@@ -40,7 +40,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -59,7 +58,7 @@ import kotlinx.coroutines.flow.flowOf
 import java.util.Locale
 
 /**
- * This route is used by Navigation Graph to show Splash Screen
+ * This route is used by Navigation Graph to show Home page
  */
 object HomeRoute : NavigationRoute("home")
 
@@ -101,7 +100,9 @@ fun HomePage(
 }
 
 /**
- * The home page of the app.
+ * The home page of the app which contains UserNameField, UserInfo and RepoList.
+ *
+ * This composable without viewModel only final dependencies, helpful in composable preview.
  *
  * @param state The state of the home page.
  * @param repos The list of repositories.
@@ -176,7 +177,10 @@ fun HomePage(
                 LazyColumn(
                     Modifier
                         .fillMaxSize()
-                        .padding(vertical = MaterialTheme.padding.small)
+                        .padding(
+                            vertical = MaterialTheme.padding.small,
+                            horizontal = MaterialTheme.padding.extraSmall
+                        )
                 ) {
                     item {
                         Spacer(modifier = Modifier.height(MaterialTheme.padding.small))
@@ -184,10 +188,7 @@ fun HomePage(
                     items(repos.itemCount) { index ->
                         repos[index]?.let { repo ->
                             RepoListItem(
-                                modifier = Modifier.padding(
-                                    vertical = MaterialTheme.padding.small,
-                                    horizontal = 14.dp
-                                ),
+                                modifier = Modifier.padding(MaterialTheme.padding.small),
                                 repo = repo,
                                 onClick = {
                                     onRepoClick?.invoke(repo)
@@ -201,6 +202,11 @@ fun HomePage(
     }
 }
 
+/**
+ * A composable function that creates a top app bar.
+ *
+ * @param modifier The modifier to apply to the top app bar.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(modifier: Modifier) {
@@ -216,6 +222,11 @@ fun TopBar(modifier: Modifier) {
     )
 }
 
+/**
+ * A composable function that displays a message when there is no network connection.
+ *
+ * @param modifier The modifier to apply to the composable.
+ */
 @Composable
 fun NoNetwork(modifier: Modifier = Modifier) {
     Box(
@@ -234,6 +245,14 @@ fun NoNetwork(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * A composable function that renders a text field for entering a user ID and a button for searching.
+ *
+ * @param username The current user ID.
+ * @param onUsernameChange A callback that is called when the user ID changes.
+ * @param onSearchClick A callback that is called when the search button is clicked.
+ * @param modifier The modifier to apply to the layout.
+ */
 @Composable
 fun UserNameField(
     username: String,

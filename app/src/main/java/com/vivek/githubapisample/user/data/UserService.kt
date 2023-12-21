@@ -6,14 +6,16 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 /**
- * Performs user related actions like fetching user information
+ * Implementation of [UserRemoteSource] which uses retrofit to communicate with server to perform
+ * user related actions like fetching user information.
  */
 interface UserService : UserRemoteSource {
 
     /**
-     * Provide user information based on [username]
+     * Fetches user information from server.
      *
-     * @return response of [User]
+     * @param username The username of the user.
+     * @return A response containing the user information.
      */
     @GET("users/{username}")
     override suspend fun getUserInfo(
@@ -21,6 +23,12 @@ interface UserService : UserRemoteSource {
     ): Response<UserDto>
 
     companion object {
+        /**
+         * Creates a new instance of [UserService] using the given [Retrofit] instance.
+         *
+         * @param retrofit The retrofit instance to use.
+         * @return A new instance of [UserService].
+         */
         fun create(retrofit: Retrofit): UserService {
             return retrofit.create(UserService::class.java)
         }

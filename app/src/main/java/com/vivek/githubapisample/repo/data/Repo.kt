@@ -3,7 +3,8 @@ package com.vivek.githubapisample.repo.data
 import com.vivek.githubapisample.user.data.User
 
 /**
- * Data object that represents a Repo
+ * A business data object that represents a Repo this object wil be available in domain/presentation layer
+ * It act act as bridge between data layer and domain layer
  */
 data class Repo(
 
@@ -17,10 +18,14 @@ data class Repo(
 
     val updatedAt: String?
 ) {
-    /** Safe description for UI returns empty if null */
+    /** Safe description for UI, returns empty if null */
     var displayDescription = description ?: ""
 
     companion object {
+
+        /**
+         * Creates a fake repo object for preview and testing purpose
+         */
         fun fake(description: String? = "This is temporary fake description") = Repo(
             name = "Fake",
             description = description,

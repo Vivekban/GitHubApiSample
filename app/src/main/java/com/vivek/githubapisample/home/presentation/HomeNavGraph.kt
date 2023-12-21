@@ -9,6 +9,7 @@ import androidx.navigation.navigation
 import com.vivek.githubapisample.repo.presentation.RepoPage
 import com.vivek.githubapisample.repo.presentation.RepoRoute
 
+/** Route for home graph */
 const val HOME_GRAPH_ROUTE = "home_graph"
 
 /**

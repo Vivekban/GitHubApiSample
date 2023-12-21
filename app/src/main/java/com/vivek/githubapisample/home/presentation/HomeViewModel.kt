@@ -60,12 +60,14 @@ class HomeViewModel @Inject constructor(
     }
 
     /**
-     * Contains the message to be shown to the user.
+     * Flow of messages that need to be shown to the user.
+     * These events need to be handled one time.
      */
     private val _messageFlow = MutableStateFlow<OneTimeEvent<Int>?>(null)
 
     /**
-     * Contains the username to be searched. It will be updated once user press search button
+     * Flow of the username to be searched. It will be updated once user press search button.
+     * Used [savedStateHandle] for persisting username between abrupt crash.
      */
     private val _usernameFlow = savedStateHandle.getStateFlow(USER_NAME_KEY, "")
 
@@ -121,14 +123,13 @@ class HomeViewModel @Inject constructor(
             )
         }.cachedIn(viewModelScope)
 
-    /**
-     * Tells if device is online or not
-     */
+    /** Tells if device is online or not */
     private val _isOnlineFlow =
         networkMonitor.isOnline.distinctUntilChanged().onStart { emit(true) }
 
     /**
-     * The UI state for the Home screen.
+     * The flow of [HomeUiState] which is computed from [_usernameSearchFlow], [_userFlow], [_messageFlow]
+     * and [_isOnlineFlow].
      */
     private val _uiState =
         combine(
@@ -150,6 +151,7 @@ class HomeViewModel @Inject constructor(
             initialValue = HomeUiState()
         )
 
+    /** The flow of [HomeUiState] for the Home screen. */
     val state: StateFlow<HomeUiState> = _uiState
 
     /**

@@ -123,6 +123,14 @@ fun RepoPage(
     }
 }
 
+/**
+ * A composable function that displays the details of a repository.
+ *
+ * This composable without viewModel only final dependencies, helpful in composable preview.
+ *
+ * @param repo The repository to display.
+ * @param modifier The modifier to apply to the composable.
+ */
 @Composable
 fun RepoDetail(repo: Repo, modifier: Modifier = Modifier) {
     val showBadge = (repo.forks ?: 0) >= MINIMUM_FORKS_FOR_BADGE

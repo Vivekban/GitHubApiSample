@@ -6,7 +6,7 @@ import com.vivek.githubapisample.repo.data.Repo
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Manages repos related information
+ * Interface for accessing [Repo] related information
  */
 interface RepoRepository {
 

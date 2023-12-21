@@ -3,7 +3,7 @@ package com.vivek.githubapisample.user.data
 import retrofit2.Response
 
 /**
- * Performs user related actions like fetching user information
+ * Performs user related actions like fetching user information from api
  */
 interface UserRemoteSource {
 
