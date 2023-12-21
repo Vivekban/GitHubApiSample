@@ -26,6 +26,8 @@ paging = "3.2.1"
 pagingCompose = "3.3.0-alpha02"
 turbine = "1.0.0"
 
+spotless = "6.23.3"
+
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 
@@ -87,5 +89,5 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 
