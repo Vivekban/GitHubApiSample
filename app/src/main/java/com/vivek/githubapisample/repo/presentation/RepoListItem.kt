@@ -23,7 +23,7 @@ import com.vivek.githubapisample.theme.elevation
 import com.vivek.githubapisample.theme.padding
 
 /**
- * A composable function that displays a single repository item in a list.
+ * A composable function that displays a single [Repo] item in a list.
  *
  * @param repo The repository to display.
  * @param modifier The modifier to apply to the item.

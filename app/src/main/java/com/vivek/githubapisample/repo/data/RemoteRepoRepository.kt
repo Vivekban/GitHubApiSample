@@ -47,7 +47,7 @@ class RemoteRepoRepository @Inject constructor(private val remote: RepoRemoteSou
     override suspend fun getRepo(name: String, owner: String): AppResult<Repo> {
         return try {
             val repo = remote.getRepo(owner, name)
-            repo.body()?.let { sUser -> AppResult.Success(sUser.toModel()) }
+            repo.body()?.let { sRepo -> AppResult.Success(sRepo.toModel()) }
                 ?: AppResult.Error(AppException.NotFound())
         } catch (e: HttpException) {
             AppResult.Error(AppException.Unknown(e))

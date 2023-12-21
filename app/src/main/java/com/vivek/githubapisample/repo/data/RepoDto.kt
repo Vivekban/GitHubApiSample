@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 import com.vivek.githubapisample.user.data.UserDto
 
 /**
- * Represents a Repo object that receives from cloud
+ * Represents a Repo object that receives from api/cloud
  */
 @JsonClass(generateAdapter = true)
 data class RepoDto(
@@ -26,6 +26,10 @@ data class RepoDto(
     val updatedAt: String?
 ) {
     companion object {
+
+        /**
+         * Creates a fake repo object for preview and testing purpose
+         */
         fun fake(description: String? = "This is temporary fake description") = RepoDto(
             name = "Fake",
             description = description,

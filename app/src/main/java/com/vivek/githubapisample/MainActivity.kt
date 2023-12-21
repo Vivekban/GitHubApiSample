@@ -9,7 +9,7 @@ import com.vivek.githubapisample.theme.GitHubApiSampleTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * The main activity of the app.
+ * The starting activity of the app.
  */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

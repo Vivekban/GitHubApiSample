@@ -19,7 +19,6 @@ import javax.inject.Inject
  *
  * The ViewModel is initialized with the name and owner of the repository as arguments.
  * These arguments are passed to the [GetRepoUsecase] to fetch the repository details.
- *
  */
 @HiltViewModel
 class RepoViewModel @Inject constructor(
@@ -38,6 +37,8 @@ class RepoViewModel @Inject constructor(
 
     /**
      * Expose [RepoUiState] which basically contains information related to the repo.
+     *
+     * It remains active for [5000ms] after  disappearance of the last subscriber
      */
     val state = _repoFlow.map { repo ->
         RepoUiState(repo = repo)
@@ -48,14 +49,17 @@ class RepoViewModel @Inject constructor(
     )
 
     companion object {
+        /** Repo name key used for saved state */
         const val REPO_NANE_KEY = "name"
+
+        /** Repo owner key used for saved state */
         const val REPO_OWNER_KEY = "owner"
     }
 
 }
 
 /**
- *  State of Repo Detail
+ *  State of Repo Detail contains information of a repo.
  */
 data class RepoUiState(
     /**

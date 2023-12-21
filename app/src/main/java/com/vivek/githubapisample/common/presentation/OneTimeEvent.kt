@@ -1,7 +1,7 @@
 package com.vivek.githubapisample.common.presentation
 
 /**
- * This is typically used for one-time events like navigation and showing Snackbar messages.
+ * This is typically used for one-time handling of events like navigation and showing Snackbar message.
  * Once its handled, it will not be handled again.
  */
 open class OneTimeEvent<out T>(private val content: T) {

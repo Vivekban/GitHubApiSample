@@ -8,6 +8,13 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * A class that represents different elevation levels used in app.
+ *
+ * @property low The low elevation level.
+ * @property medium The medium elevation level.
+ * @property high The high elevation level.
+ */
 @Suppress("unused")
 class Elevation(
     val low: Dp = ElevationDefaults.Low,
@@ -15,9 +22,11 @@ class Elevation(
     val high: Dp = ElevationDefaults.High,
 )
 
+/** A default elevation level for card */
 val Elevation.card: Dp
     get() = medium
 
+/** A default elevation level for App */
 object ElevationDefaults {
     /** Low elevation */
     val Low: Dp = 4.dp
@@ -30,6 +39,9 @@ object ElevationDefaults {
 
 }
 
+/**
+ * CompositionLocal used to pass [Elevation] down the tree.
+ */
 internal val LocalElevation = staticCompositionLocalOf { Elevation() }
 
 /**

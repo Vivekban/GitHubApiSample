@@ -1,7 +1,7 @@
 package com.vivek.githubapisample.api
 
 /**
- * A sealed class that represents an application exception.
+ * A sealed wrapper class that represents an application exception.
  */
 sealed class AppException(message: String?, throwable: Throwable?) : Exception(message, throwable) {
     /** A data class that represents a NotFound exception. */

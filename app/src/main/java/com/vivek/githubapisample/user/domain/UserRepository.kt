@@ -5,7 +5,7 @@ import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.user.data.User
 
 /**
- * Manages [User] related operations like fetching user information.
+ * Interface for accessing user information.
  */
 interface UserRepository {
 
