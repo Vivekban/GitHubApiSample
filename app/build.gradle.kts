@@ -22,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "BASE_URL", "\"" + getBaseUrl() + "\"")
     }
 
     buildTypes {
@@ -143,6 +144,10 @@ dependencies {
 
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+}
+
+fun getBaseUrl(): String? {
+    return project.findProperty("baseUrl") as? String
 }
 
 configure<com.diffplug.gradle.spotless.SpotlessExtension> {
