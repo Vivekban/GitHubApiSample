@@ -2,21 +2,20 @@ package com.vivek.githubapisample.common.presentation.helper
 
 import com.vivek.githubapisample.R
 import com.vivek.githubapisample.api.AppException
+import com.vivek.githubapisample.common.presentation.UiString
+import com.vivek.githubapisample.common.presentation.uiString
 
 /**
- * Converts a Throwable to a user-friendly message.
+ * Converts a Throwable to a [UiString].
  *
- * @return The resource id of the user-friendly message.
+ * @return parse error and based on that UI String.
  */
-fun Throwable.toUserFriendlyMessage(): Int {
+fun Throwable.uiString(): UiString = when (this) {
+    is AppException -> when (this) {
+        is AppException.Error -> message?.uiString
+        is AppException.NoNetwork -> R.string.error_no_network.uiString
+        is AppException.NotFound -> R.string.error_not_found.uiString
+    } ?: R.string.error_unknown.uiString
 
-    if (this is AppException) {
-
-        return when (this) {
-            is AppException.NotFound -> R.string.error_not_found
-            is AppException.Unknown -> R.string.error_unknown
-            is AppException.NoNetwork -> R.string.error_no_network
-        }
-    }
-    return R.string.error_unknown
+    else -> message?.uiString ?: R.string.error_unknown.uiString
 }

@@ -7,8 +7,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.common.presentation.OneTimeEvent
+import com.vivek.githubapisample.common.presentation.UiString
 import com.vivek.githubapisample.common.presentation.helper.NetworkMonitor
-import com.vivek.githubapisample.common.presentation.helper.toUserFriendlyMessage
+import com.vivek.githubapisample.common.presentation.helper.uiString
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.domain.GetReposByUsernameUsecase
 import com.vivek.githubapisample.user.data.User
@@ -63,7 +64,7 @@ class HomeViewModel @Inject constructor(
      * Flow of messages that need to be shown to the user.
      * These events need to be handled one time.
      */
-    private val _messageFlow = MutableStateFlow<OneTimeEvent<Int>?>(null)
+    private val _messageFlow = MutableStateFlow<OneTimeEvent<UiString>?>(null)
 
     /**
      * Flow of the username to be searched. It will be updated once user press search button.
@@ -101,7 +102,7 @@ class HomeViewModel @Inject constructor(
         // listen for error and emit message if found any
         .onEach {
             it.exceptionOrNull()?.let { exception ->
-                _messageFlow.emit(OneTimeEvent(exception.toUserFriendlyMessage()))
+                _messageFlow.emit(OneTimeEvent(exception.uiString()))
             }
         }
 
@@ -190,5 +191,5 @@ data class HomeUiState(
     val usernameQuery: String = "",
     val user: AppResult<User>? = null,
     val isOnline: Boolean = true,
-    val message: OneTimeEvent<Int>? = null
+    val message: OneTimeEvent<UiString>? = null
 )

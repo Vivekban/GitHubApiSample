@@ -27,7 +27,7 @@ class RemoteUserRepository @Inject constructor(private val remote: UserRemoteSou
                 ?: AppResult.Error(AppException.NotFound())
 
         } catch (e: HttpException) {
-            AppResult.Error(AppException.Unknown())
+            AppResult.Error(AppException.Error(reason = e.message(), e))
         } catch (e: IOException) {
             AppResult.Error(AppException.NoNetwork())
         }
