@@ -50,7 +50,7 @@ class RemoteRepoRepository @Inject constructor(private val remote: RepoRemoteSou
             repo.body()?.let { sRepo -> AppResult.Success(sRepo.toModel()) }
                 ?: AppResult.Error(AppException.NotFound())
         } catch (e: HttpException) {
-            AppResult.Error(AppException.Unknown(e))
+            AppResult.Error(AppException.Error(reason = e.message(), e))
         } catch (e: IOException) {
             AppResult.Error(AppException.NoNetwork())
         }

@@ -48,6 +48,7 @@ import com.vivek.githubapisample.R
 import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.common.presentation.NavigationRoute
 import com.vivek.githubapisample.common.presentation.ValueCallback
+import com.vivek.githubapisample.common.presentation.toDisplayString
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.presentation.RepoListItem
 import com.vivek.githubapisample.theme.GitHubApiSampleTheme
@@ -125,7 +126,7 @@ fun HomePage(
     val user = state.user?.getOrNull()
 
     // Show SnackBar on error
-    val info = state.message?.getContent()?.let { stringResource(it) }
+    val info = state.message?.getContent()?.toDisplayString()
     LaunchedEffect(key1 = info) {
         info?.let {
             hostState.showSnackbar(
