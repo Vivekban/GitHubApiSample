@@ -1,38 +1,55 @@
 package com.vivek.githubapisample.common.presentation
 
+import androidx.navigation.NamedNavArgument
+
 /**
  * A class to represent a navigation destination. It will be used to navigate between screens.
  *
- * @property route The route to navigate to.
+ * @property name The route to navigate to.
  * @property title The title of the route.
  */
 open class NavigationRoute(
     /**
      * The route to navigate to.
      */
-    val route: String,
+    val name: String,
 
     /**
      * The title of the route.
      */
     val title: String? = null,
+
+    /** Optional path arguments */
+    private val pathArguments: List<NamedNavArgument>? = null,
+
+    /** Optional query arguments */
+    private val queryArguments: List<NamedNavArgument>? = null,
 ) {
-    // A function to add arguments to the route.
-    fun withArgs(vararg args: String): String {
-        // Create a StringBuilder to build the route with arguments.
-        val builder = StringBuilder()
 
-        // Append the route to the StringBuilder.
-        builder.append(route)
-
-        // Iterate over the arguments and append them to the StringBuilder.
-        args.forEach { arg ->
-            // Append a "/" before each argument.
-            builder.append("/$arg")
+    /** Final destination along with [name], [pathArguments] and [queryArguments] */
+    @Suppress("UNUSED")
+    val destination
+        get() = buildString {
+            append(name)
+            append(argumentsAsPath)
         }
 
-        // Return the built route.
-        return builder.toString()
+    /** Return arguments as string */
+    val argumentsAsPath = buildString {
+        pathArguments?.forEach { arg ->
+            append("/{${arg.name}}")
+        }
+        queryArguments?.let { arguments ->
+            append("?")
+            append(arguments.map { arg -> "${arg.name}={${arg.name}}" }.joinToString { "," })
+        }
     }
+
+    @Suppress("UNUSED")
+            /** Return collective list */
+    val arguments
+        get() = listOf(pathArguments, queryArguments).flatMap {
+            it?.asIterable() ?: emptyList()
+        }
 
 }
