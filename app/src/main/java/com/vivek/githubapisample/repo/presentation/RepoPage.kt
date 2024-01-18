@@ -41,7 +41,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vivek.githubapisample.R
 import com.vivek.githubapisample.common.data.AppResult
-import com.vivek.githubapisample.common.presentation.NavigationRoute
 import com.vivek.githubapisample.common.presentation.VoidCallback
 import com.vivek.githubapisample.common.presentation.component.Error
 import com.vivek.githubapisample.common.presentation.component.Loading
@@ -51,10 +50,7 @@ import com.vivek.githubapisample.theme.GitHubApiSampleTheme
 import com.vivek.githubapisample.theme.iconSize
 import com.vivek.githubapisample.theme.padding
 
-/**
- * This route is used by Navigation Graph to show [RepoPage]
- */
-object RepoRoute : NavigationRoute("repo")
+
 
 private const val MINIMUM_FORKS_FOR_BADGE = 5000
 
@@ -186,7 +182,7 @@ fun RepoDetail(repo: Repo, modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.width(MaterialTheme.padding.small))
             Text(
-                text = DateTimeUtils.getOnlyDate(repo.updatedAt) ?: "",
+                text = DateTimeUtils.getOnlyDate(repo.updatedAt) ?: "-",
             )
         }
 

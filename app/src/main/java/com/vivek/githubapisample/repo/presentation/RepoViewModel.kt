@@ -26,12 +26,19 @@ class RepoViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val _name: String = savedStateHandle.get<String>(REPO_NANE_KEY) ?: ""
-
-    private val _owner: String = savedStateHandle.get<String>(REPO_OWNER_KEY) ?: ""
+    private val _arguments = RepoArgs(savedStateHandle)
 
     private val _repoFlow =
-        flow { emit(getRepoUsecase(GetRepoUsecase.Param(_name, _owner))) }.onStart {
+        flow {
+            emit(
+                getRepoUsecase(
+                    GetRepoUsecase.Param(
+                        _arguments.name,
+                        _arguments.owner
+                    )
+                )
+            )
+        }.onStart {
             emit(AppResult.Loading)
         }
 
@@ -47,14 +54,6 @@ class RepoViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
         initialValue = RepoUiState()
     )
-
-    companion object {
-        /** Repo name key used for saved state */
-        const val REPO_NANE_KEY = "name"
-
-        /** Repo owner key used for saved state */
-        const val REPO_OWNER_KEY = "owner"
-    }
 
 }
 

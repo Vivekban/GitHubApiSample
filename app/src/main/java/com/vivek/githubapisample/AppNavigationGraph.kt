@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.vivek.githubapisample.home.presentation.homeGraph
+import com.vivek.githubapisample.repo.presentation.repoGraph
 
 const val ROOT_GRAPH_ROUTE = "/"
 
@@ -21,5 +22,6 @@ fun AppNavigationGraph(navController: NavHostController, startDestination: Strin
         startDestination = startDestination
     ) {
         homeGraph(navController)
+        repoGraph(navController)
     }
 }
