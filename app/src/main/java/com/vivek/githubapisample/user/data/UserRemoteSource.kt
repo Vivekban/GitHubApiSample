@@ -1,7 +1,5 @@
 package com.vivek.githubapisample.user.data
 
-import retrofit2.Response
-
 /**
  * Performs user related actions like fetching user information from api
  */
@@ -12,6 +10,6 @@ interface UserRemoteSource {
      *
      * @return response of [UserDto]
      */
-    suspend fun getUserInfo(username: String): Response<UserDto>
+    suspend fun getUserInfo(username: String): Result<UserDto>
 
 }

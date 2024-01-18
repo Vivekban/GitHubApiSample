@@ -1,6 +1,5 @@
 package com.vivek.githubapisample.repo.data
 
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -25,7 +24,7 @@ interface RepoService : RepoRemoteSource {
         @Path("username") username: String,
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
-    ): Response<List<RepoDto>>
+    ): Result<List<RepoDto>>
 
     /**
      * Get a single repository by its owner and name
@@ -38,7 +37,7 @@ interface RepoService : RepoRemoteSource {
     override suspend fun getRepo(
         @Path("owner") owner: String,
         @Path("name") name: String
-    ): Response<RepoDto>
+    ): Result<RepoDto>
 
     companion object {
         /**

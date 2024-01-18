@@ -3,8 +3,9 @@ package com.vivek.githubapisample.repo.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
-import com.vivek.githubapisample.api.AppException
+import com.vivek.githubapisample.common.data.AppException
 import com.vivek.githubapisample.common.data.AppResult
+import com.vivek.githubapisample.repo.data.RemoteRepoRepository
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.domain.GetRepoUsecase
 import io.mockk.MockKAnnotations
@@ -19,12 +20,18 @@ import org.junit.Test
 class RepoViewModelTest {
     private val repo = Repo.fake()
 
+    private val name = "name"
+
+    private val owner = "name"
+
     private lateinit var sut: RepoViewModel
 
     @MockK
     lateinit var savedStateHandle: SavedStateHandle
 
-    @MockK
+    @MockK(relaxed = true)
+    lateinit var repository: RemoteRepoRepository
+
     lateinit var getRepoUsecase: GetRepoUsecase
 
     @get:Rule
@@ -33,11 +40,12 @@ class RepoViewModelTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
-        every { savedStateHandle.get<String>(RepoViewModel.REPO_NANE_KEY) } returns "name"
-        every { savedStateHandle.get<String>(RepoViewModel.REPO_OWNER_KEY) } returns "owner"
+
+        getRepoUsecase = GetRepoUsecase(repository)
+
+        every { savedStateHandle.get<String>(any()) } returns name
 
         sut = RepoViewModel(getRepoUsecase, savedStateHandle)
-
     }
 
     @Test
@@ -50,24 +58,23 @@ class RepoViewModelTest {
     @Test
     fun stateEmitsLoadingState() = runTest {
 
-        coEvery { getRepoUsecase(any()) } returns AppResult.Loading
-
+        coEvery { repository.getRepo(name, owner) } returns Result.success(repo)
 
         assert(sut.state.value.repo == AppResult.Loading)
+
     }
 
     @Test
     fun emitsSuccessState() = runTest {
 
         // Arrange
-        coEvery { getRepoUsecase(any()) } returns AppResult.Success(repo)
+        coEvery { repository.getRepo(name, owner) } returns Result.success(repo)
 
         // Assert
         sut.state.test {
             assert(awaitItem().repo == AppResult.Loading)
             assert(awaitItem().repo.getOrNull() == repo)
         }
-
     }
 
     @Test
@@ -75,12 +82,13 @@ class RepoViewModelTest {
 
         // Arrange
         val expectedError = AppException.NotFound()
-        coEvery { getRepoUsecase(any()) } returns AppResult.Error(expectedError)
+        coEvery { repository.getRepo(name, owner) } returns Result.failure<Repo>(expectedError)
 
         // Assert
         sut.state.test {
             assert(awaitItem().repo == AppResult.Loading)
-            assert(awaitItem().repo.exceptionOrNull() == expectedError)
+            val result = awaitItem()
+            assert(result.repo.exceptionOrNull() == expectedError)
         }
     }
 }

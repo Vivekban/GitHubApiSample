@@ -1,7 +1,6 @@
 package com.vivek.githubapisample.repo.domain
 
 import androidx.paging.PagingData
-import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.repo.data.Repo
 import kotlinx.coroutines.flow.Flow
 
@@ -29,5 +28,5 @@ interface RepoRepository {
      *
      * @return The repository, or an error if it does not exist.
      */
-    suspend fun getRepo(name: String, owner: String): AppResult<Repo>
+    suspend fun getRepo(name: String, owner: String): Result<Repo>
 }

@@ -4,13 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vivek.githubapisample.common.data.AppResult
+import com.vivek.githubapisample.common.data.asAppResultFlow
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.domain.GetRepoUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -30,17 +30,14 @@ class RepoViewModel @Inject constructor(
 
     private val _repoFlow =
         flow {
-            emit(
-                getRepoUsecase(
-                    GetRepoUsecase.Param(
-                        _arguments.name,
-                        _arguments.owner
-                    )
+            val result = getRepoUsecase(
+                GetRepoUsecase.Param(
+                    _arguments.name,
+                    _arguments.owner
                 )
             )
-        }.onStart {
-            emit(AppResult.Loading)
-        }
+            emit(result)
+        }.asAppResultFlow()
 
     /**
      * Expose [RepoUiState] which basically contains information related to the repo.

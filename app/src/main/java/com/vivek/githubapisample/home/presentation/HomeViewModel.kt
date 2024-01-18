@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.vivek.githubapisample.common.data.AppResult
+import com.vivek.githubapisample.common.data.asAppResultFlow
 import com.vivek.githubapisample.common.presentation.OneTimeEvent
 import com.vivek.githubapisample.common.presentation.UiString
 import com.vivek.githubapisample.common.presentation.helper.NetworkMonitor
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
@@ -50,13 +52,10 @@ class HomeViewModel @Inject constructor(
     private val getReposByUsernameUsecase: GetReposByUsernameUsecase,
     private val savedStateHandle: SavedStateHandle,
     networkMonitor: NetworkMonitor,
-) :
-    ViewModel() {
+) : ViewModel() {
 
     companion object {
-        /**
-         * Key for last search username
-         */
+        /** Key for last search username */
         const val USER_NAME_KEY = "user_name"
     }
 
@@ -92,14 +91,13 @@ class HomeViewModel @Inject constructor(
             }
         }
         // check if username is changed
-        .distinctUntilChanged().map {
+        .distinctUntilChanged()
+        .map {
             getUserInfoUsecase(GetUserInfoUsecase.Param(it))
         }
-        // emit loading state
-        .onStart {
-            emit(AppResult.Loading)
-        }
-        // listen for error and emit message if found any
+        // convert to AppResult - it will help to handle error and set initial state as loading.
+        .asAppResultFlow()
+        // listen for error and emit message
         .onEach {
             it.exceptionOrNull()?.let { exception ->
                 _messageFlow.emit(OneTimeEvent(exception.uiString()))
@@ -113,7 +111,9 @@ class HomeViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     val reposByUserFlow: Flow<PagingData<Repo>> = _userFlow
         // check if we have valid user
-        .filterIsInstance(AppResult.Success::class).map { it.data }.filterIsInstance(User::class)
+        .filterIsInstance(AppResult.Success::class)
+        .map { it.data }
+        .filterIsInstance(User::class)
         .distinctUntilChanged()
         // fetch details
         .flatMapLatest {
@@ -126,7 +126,10 @@ class HomeViewModel @Inject constructor(
 
     /** Tells if device is online or not */
     private val _isOnlineFlow =
-        networkMonitor.isOnline.distinctUntilChanged().onStart { emit(true) }
+        networkMonitor.isOnline
+            .distinctUntilChanged()
+            .catch { emit(false) }
+            .onStart { emit(true) }
 
     /**
      * The flow of [HomeUiState] which is computed from [_usernameSearchFlow], [_userFlow], [_messageFlow]
