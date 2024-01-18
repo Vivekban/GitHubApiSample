@@ -36,18 +36,16 @@ sealed class AppResult<out T> {
      */
     fun isSuccess(): Boolean = this is Success
 
-    @Suppress("unused")
     /**
      * Returns `true` if this instance represents a failed outcome.
      */
+    @Suppress("unused")
     fun isError(): Boolean = this is Error
 
     /**
      * Returns `true` if this instance represents a failed outcome.
      */
     fun isLoading(): Boolean = this is Loading
-
-    // value & exception retrieval
 
     /**
      * Returns the encapsulated value if this instance represents [success][AppResult.isSuccess] or `null`
@@ -71,12 +69,23 @@ sealed class AppResult<out T> {
         }
 }
 
-@Suppress("unused")
-fun <T> Flow<T>.asResult(): Flow<AppResult<T>> {
+fun <T> Throwable.toResult() = Result.failure<T>(this)
+
+fun <T> Result<T>.toAppResult(): AppResult<T> = fold(
+    onSuccess = { AppResult.Success(it) },
+    onFailure = { AppResult.Error(it) }
+)
+
+fun <T> Flow<Result<T>>.asAppResultFlow(): Flow<AppResult<T>> {
     return this
-        .map<T, AppResult<T>> {
-            AppResult.Success(it)
+        .map {
+            it.toAppResult()
         }
-        .onStart { emit(AppResult.Loading) }
-        .catch { emit(AppResult.Error(it)) }
+        .onStart {
+            emit(AppResult.Loading)
+        }
+        .catch {
+            emit(AppResult.Error(it))
+        }
 }
+

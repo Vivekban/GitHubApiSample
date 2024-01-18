@@ -5,12 +5,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.paging.PagingData
 import app.cash.turbine.test
 import com.vivek.githubapisample.MainCoroutineRule
-import com.vivek.githubapisample.api.AppException
+import com.vivek.githubapisample.common.data.AppException
 import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.common.presentation.helper.NetworkMonitor
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.domain.GetReposByUsernameUsecase
 import com.vivek.githubapisample.runBlockingTest
+import com.vivek.githubapisample.user.data.RemoteUserRepository
 import com.vivek.githubapisample.user.data.User
 import com.vivek.githubapisample.user.domain.GetUserInfoUsecase
 import io.mockk.MockKAnnotations
@@ -37,7 +38,9 @@ class HomeViewModelTest {
 
     private lateinit var savedStateHandle: SavedStateHandle
 
-    @MockK
+    @MockK(relaxed = true)
+    lateinit var repository: RemoteUserRepository
+
     lateinit var getUserInfoUsecase: GetUserInfoUsecase
 
     @MockK
@@ -55,6 +58,8 @@ class HomeViewModelTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+
+        getUserInfoUsecase = GetUserInfoUsecase(repository)
 
         coEvery {
             networkMonitor.isOnline
@@ -91,7 +96,7 @@ class HomeViewModelTest {
     @Test
     fun doSearchShouldNotFetchUserOnInvalidQuery() = runTest {
         // Arrange
-        coEvery { getUserInfoUsecase(any()) } returns AppResult.Success(User.fake())
+        coEvery { repository.fetchUserInfo(any()) } returns Result.success(User.fake())
 
         // Act
         sut.state.test {
@@ -107,7 +112,9 @@ class HomeViewModelTest {
     @Test
     fun doSearchShouldFetchUserOnValidQuery() = runTest {
         // Arrange
-        coEvery { getUserInfoUsecase(any()) } returns AppResult.Success(User.fake())
+        coEvery {
+            repository.fetchUserInfo(query)
+        } returns Result.success(User.fake())
 
         // Act
         sut.state.test {
@@ -117,14 +124,15 @@ class HomeViewModelTest {
             // Assert
             assertEquals(null, awaitItem().user?.getOrNull())
             assertEquals(AppResult.Loading, awaitItem().user)
-            assertEquals(User.fake(), awaitItem().user?.getOrNull())
+            val user = awaitItem()
+            assertEquals(User.fake(), user.user?.getOrNull())
         }
     }
 
     @Test
     fun doSearchShouldReturnFailureIfNoUserFound() = runTest {
         // Arrange
-        coEvery { getUserInfoUsecase(any()) } returns AppResult.Error(AppException.NotFound())
+        coEvery { repository.fetchUserInfo(query) } returns Result.failure(AppException.NotFound())
 
         // Act
         sut.state.test {
@@ -155,8 +163,8 @@ class HomeViewModelTest {
         val pagingData = PagingData.from(listOf(Repo.fake()))
 
         coEvery {
-            getUserInfoUsecase(any())
-        } returns AppResult.Success(user)
+            repository.fetchUserInfo(any())
+        } returns Result.success(user)
 
         coEvery {
             getReposByUsernameUsecase(any())

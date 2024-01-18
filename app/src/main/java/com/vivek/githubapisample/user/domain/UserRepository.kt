@@ -1,7 +1,6 @@
 package com.vivek.githubapisample.user.domain
 
-import com.vivek.githubapisample.api.AppException
-import com.vivek.githubapisample.common.data.AppResult
+import com.vivek.githubapisample.common.data.AppException
 import com.vivek.githubapisample.user.data.User
 
 /**
@@ -15,6 +14,6 @@ interface UserRepository {
      *
      * @return Result of User
      */
-    suspend fun fetchUserInfo(userName: String): AppResult<User>
+    suspend fun fetchUserInfo(userName: String): Result<User>
 
 }

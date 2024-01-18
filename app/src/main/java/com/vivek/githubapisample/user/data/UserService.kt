@@ -1,6 +1,5 @@
 package com.vivek.githubapisample.user.data
 
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -20,7 +19,7 @@ interface UserService : UserRemoteSource {
     @GET("users/{username}")
     override suspend fun getUserInfo(
         @Path("username") username: String
-    ): Response<UserDto>
+    ): Result<UserDto>
 
     companion object {
         /**

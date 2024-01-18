@@ -1,7 +1,6 @@
 package com.vivek.githubapisample.repo.domain
 
 import com.vivek.githubapisample.common.domain.SuspendUsecase
-import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.repo.data.Repo
 import javax.inject.Inject
 
@@ -11,7 +10,7 @@ import javax.inject.Inject
  * @param repository to fetch information.
  */
 class GetRepoUsecase @Inject constructor(private val repository: RepoRepository) :
-    SuspendUsecase<GetRepoUsecase.Param, AppResult<Repo>> {
+    SuspendUsecase<GetRepoUsecase.Param, Result<Repo>> {
 
     /**
      * Parameters for the usecase.
@@ -21,7 +20,7 @@ class GetRepoUsecase @Inject constructor(private val repository: RepoRepository)
      */
     data class Param(val name: String, val owner: String)
 
-    override suspend fun invoke(params: Param): AppResult<Repo> {
+    override suspend fun invoke(params: Param): Result<Repo> {
         return repository.getRepo(params.name, params.owner)
     }
 

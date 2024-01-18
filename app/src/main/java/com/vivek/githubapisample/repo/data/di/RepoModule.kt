@@ -1,5 +1,7 @@
 package com.vivek.githubapisample.repo.data.di
 
+import androidx.paging.PagingConfig
+import com.vivek.githubapisample.common.data.DataConstant
 import com.vivek.githubapisample.repo.data.RemoteRepoRepository
 import com.vivek.githubapisample.repo.data.RepoRemoteSource
 import com.vivek.githubapisample.repo.data.RepoService
@@ -27,6 +29,14 @@ class RepoServiceModule {
     fun provideRepoService(retrofit: Retrofit): RepoService {
         return RepoService.create(retrofit)
     }
+
+    @Singleton
+    @Provides
+    fun providesPagingConfig() = PagingConfig(
+        DataConstant.ITEMS_PER_PAGE,
+        initialLoadSize = DataConstant.ITEMS_PER_PAGE,
+        prefetchDistance = DataConstant.ITEMS_PREFETCH_DISTANCE
+    )
 
 }
 

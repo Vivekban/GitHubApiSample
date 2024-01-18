@@ -24,18 +24,4 @@ data class RepoDto(
 
     @Json(name = "updated_at")
     val updatedAt: String?
-) {
-    companion object {
-
-        /**
-         * Creates a fake repo object for preview and testing purpose
-         */
-        fun fake(description: String? = "This is temporary fake description") = RepoDto(
-            name = "Fake",
-            description = description,
-            forks = 20,
-            updatedAt = null,
-            owner = UserDto.fake()
-        )
-    }
-}
+)

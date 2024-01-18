@@ -1,9 +1,9 @@
 package com.vivek.githubapisample.repo.data
 
-import com.vivek.githubapisample.api.AppException
-import com.vivek.githubapisample.common.data.AppResult
+import androidx.paging.PagingConfig
+import com.vivek.githubapisample.common.data.AppException
 import com.vivek.githubapisample.common.data.DataConstant
-import com.vivek.githubapisample.fake.FakeResponse
+import com.vivek.githubapisample.fake.Fake
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -11,19 +11,19 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import retrofit2.Response
 
 class RemoteRepoRepositoryTest {
 
     private val username = "vivek"
-    private val repoDto = RepoDto.fake()
+    private val repoDto = Fake.repoDto()
     private val repo = Repo.fake()
     private val reposDto = listOf(repoDto)
     private val repoName = "1"
     private val owner = "vivek"
+
+    private lateinit var config: PagingConfig
 
     @MockK
     private lateinit var service: RepoService
@@ -33,7 +33,12 @@ class RemoteRepoRepositoryTest {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        sut = RemoteRepoRepository(service)
+        config = PagingConfig(
+            DataConstant.ITEMS_PER_PAGE,
+            initialLoadSize = DataConstant.ITEMS_PER_PAGE,
+            prefetchDistance = DataConstant.ITEMS_PREFETCH_DISTANCE
+        )
+        sut = RemoteRepoRepository(service, config)
     }
 
     @Test
@@ -46,7 +51,7 @@ class RemoteRepoRepositoryTest {
                 1,
                 DataConstant.ITEMS_PER_PAGE
             )
-        } returns Response.success(reposDto)
+        } returns Result.success(reposDto)
 
         // Collect the flow
         runBlocking {
@@ -68,7 +73,7 @@ class RemoteRepoRepositoryTest {
                 1,
                 DataConstant.ITEMS_PER_PAGE
             )
-        } returns Response.success(emptyList())
+        } returns Result.success(emptyList())
 
         // Collect the flow
         runBlocking {
@@ -84,13 +89,12 @@ class RemoteRepoRepositoryTest {
     fun `getRepo() should return a success result when the repo is found`() {
         // Arrange
 
-        coEvery { service.getRepo(owner, repoName) } returns Response.success(repoDto)
+        coEvery { service.getRepo(owner, repoName) } returns Result.success(repoDto)
 
         // Act
         val result = runBlocking { sut.getRepo(repoName, owner) }
 
         // Assert
-        assertTrue(result is AppResult.Success)
         assertEquals(repo, result.getOrNull())
     }
 
@@ -98,7 +102,7 @@ class RemoteRepoRepositoryTest {
     fun `getRepo() should return an error result when the repo is not found`() {
         // Arrange
 
-        coEvery { service.getRepo(owner, repoName) } returns FakeResponse.notFound()
+        coEvery { service.getRepo(owner, repoName) } returns Result.failure(AppException.NotFound())
         // Act
         val result = runBlocking { sut.getRepo(repoName, owner) }
 
