@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
  * @property small The small padding value.
  * @property medium The medium padding value.
  * @property large The large padding value.
- * @property extraLarge The extra large padding value.
  */
 @Suppress("unused")
 class Padding(
@@ -22,7 +21,6 @@ class Padding(
     val small: Dp = PaddingDefaults.Small,
     val medium: Dp = PaddingDefaults.Medium,
     val large: Dp = PaddingDefaults.Large,
-    val extraLarge: Dp = PaddingDefaults.ExtraLarge,
 )
 
 /** Default values for padding. */
@@ -39,8 +37,6 @@ object PaddingDefaults {
     /** Large sized padding */
     val Large: Dp = 20.dp
 
-    /** Extra large sized padding */
-    val ExtraLarge: Dp = 24.dp
 }
 
 /**
