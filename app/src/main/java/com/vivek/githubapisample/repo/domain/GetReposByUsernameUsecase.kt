@@ -1,7 +1,7 @@
 package com.vivek.githubapisample.repo.domain
 
 import androidx.paging.PagingData
-import com.vivek.githubapisample.common.domain.SuspendUsecase
+import com.vivek.githubapisample.common.domain.AsyncUsecase
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.domain.GetReposByUsernameUsecase.Param
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +13,7 @@ import javax.inject.Inject
  * @param repository to fetch information
  */
 class GetReposByUsernameUsecase @Inject constructor(private val repository: RepoRepository) :
-    SuspendUsecase<Param, Flow<PagingData<Repo>>> {
+    AsyncUsecase<Param, Flow<PagingData<Repo>>> {
 
     /**
      * Parameters for the usecase.
