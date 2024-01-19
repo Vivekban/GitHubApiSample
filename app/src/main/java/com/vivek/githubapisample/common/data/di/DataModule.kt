@@ -17,7 +17,7 @@ import javax.inject.Singleton
  */
 @InstallIn(SingletonComponent::class)
 @Module
-class ApiModule {
+class DataModule {
 
     /**
      * Provides the base URL for the API.

@@ -1,6 +1,6 @@
 package com.vivek.githubapisample.user.domain
 
-import com.vivek.githubapisample.common.domain.SuspendUsecase
+import com.vivek.githubapisample.common.domain.AsyncUsecase
 import com.vivek.githubapisample.user.data.User
 import com.vivek.githubapisample.user.domain.GetUserInfoUsecase.Param
 import javax.inject.Inject
@@ -11,7 +11,7 @@ import javax.inject.Inject
  * @param userRepository The repository to fetch user info from.
  */
 class GetUserInfoUsecase @Inject constructor(private val userRepository: UserRepository) :
-    SuspendUsecase<Param, Result<User>> {
+    AsyncUsecase<Param, Result<User>> {
 
     /**
      * Parameters for the usecase.

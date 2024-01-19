@@ -165,6 +165,18 @@ downloaded from [here](https://developer.android.com/studio/).
 - Start Android Studio
 - Run Application
 
+### Code Formatting
+
+We use ktfmt in conjunction with Spotless to maintain consistent and well-formatted Kotlin code
+throughout our project. Follow these instructions to set up and use ktfmt with Spotless:
+
+Formatting Code
+To format your Kotlin code using Spotless, run the following Gradle task:
+
+```bash
+./gradlew spotlessApply
+```
+
 ## Todo
 
 - [ ] Performance
@@ -175,7 +187,8 @@ downloaded from [here](https://developer.android.com/studio/).
     - [ ] Increase test coverage
     - [ ] Implement Git Hooks
     - [ ] Fix Lint Error
-    - [ ] Complete Documentation
+  - [x] Complete Documentation
+  - [x] Implement code formatter
 
 ## Additional Resources
 

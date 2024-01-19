@@ -83,7 +83,7 @@ class HomeViewModel @Inject constructor(
     private val _userFlow = _usernameFlow
         // check name is valid
         .filter {
-            // Added check for test
+            // Added check for test cases
             try {
                 it.isNotEmpty()
             } catch (e: NullPointerException) {
@@ -115,7 +115,7 @@ class HomeViewModel @Inject constructor(
         .map { it.data }
         .filterIsInstance(User::class)
         .distinctUntilChanged()
-        // fetch details
+        // fetch repo details
         .flatMapLatest {
             getReposByUsernameUsecase(
                 (GetReposByUsernameUsecase.Param(

@@ -6,9 +6,7 @@ package com.vivek.githubapisample.repo.data
 interface RepoRemoteSource {
 
     /**
-     * Provide repositories based on [username]
-     *
-     * @return list of [Repo]
+     * Provide list of [Repo] based on [username]
      */
 
     suspend fun getRepositoryByUsername(

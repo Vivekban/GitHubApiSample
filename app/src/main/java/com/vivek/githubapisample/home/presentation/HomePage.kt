@@ -47,7 +47,6 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.vivek.githubapisample.R
 import com.vivek.githubapisample.common.data.AppResult
-import com.vivek.githubapisample.common.presentation.NavigationRoute
 import com.vivek.githubapisample.common.presentation.ValueCallback
 import com.vivek.githubapisample.common.presentation.toDisplayString
 import com.vivek.githubapisample.repo.data.Repo
@@ -60,18 +59,12 @@ import kotlinx.coroutines.flow.flowOf
 import java.util.Locale
 
 /**
- * This route is used by Navigation Graph to show Home page
- */
-object HomeRoute : NavigationRoute("home")
-
-/**
  * The home page of the app which contains UserNameField, UserInfo and RepoList.
  *
  * @param onRepoClick A callback that is called when a repo is clicked.
  * @param modifier The modifier to apply to the page.
  * @param homeViewModel The view model for the page.
  */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HomePage(
     onRepoClick: ValueCallback<Repo>,
@@ -81,21 +74,12 @@ fun HomePage(
 
     val state by homeViewModel.state.collectAsState()
     val repos = homeViewModel.reposByUserFlow.collectAsLazyPagingItems()
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val focusManager = LocalFocusManager.current
 
     HomePage(
         state = state,
         repos = repos,
         modifier = modifier,
-        onUsernameChange = {
-            homeViewModel.handleUiAction(HomeUiAction.UpdateUsernameSearch(it))
-        },
-        onSearchClick = {
-            keyboardController?.hide()
-            focusManager.clearFocus()
-            homeViewModel.handleUiAction(HomeUiAction.DoSearch(it))
-        },
+        onUiAction = homeViewModel::handleUiAction,
         onRepoClick = onRepoClick
     )
 
@@ -109,20 +93,24 @@ fun HomePage(
  * @param state The state of the home page.
  * @param repos The list of repositories.
  * @param modifier The modifier to apply to the page.
- * @param onUsernameChange The callback to call when the username changes.
- * @param onSearchClick The callback to call when the search button is clicked.
+ * @param onUiAction The callback for various ui actions.
  * @param onRepoClick The callback to call when a repository is clicked.
  */
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HomePage(
     state: HomeUiState,
     repos: LazyPagingItems<Repo>,
     modifier: Modifier = Modifier,
-    onUsernameChange: ValueCallback<String>,
-    onSearchClick: ValueCallback<String>,
+    onUiAction: ValueCallback<HomeUiAction>,
     onRepoClick: ValueCallback<Repo>? = null,
 ) {
     val hostState = remember { SnackbarHostState() }
+
+    val listState = rememberLazyListState()
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
 
     val user = state.user?.getOrNull()
 
@@ -152,8 +140,14 @@ fun HomePage(
             UserNameField(
                 modifier = Modifier.padding(horizontal = MaterialTheme.padding.medium),
                 username = state.usernameQuery,
-                onUsernameChange = onUsernameChange,
-                onSearchClick = onSearchClick
+                onUsernameChange = {
+                    onUiAction(HomeUiAction.UpdateUsernameSearch(it))
+                },
+                onSearchClick = {
+                    keyboardController?.hide()
+                    focusManager.clearFocus()
+                    onUiAction(HomeUiAction.DoSearch(it))
+                }
             )
             Spacer(modifier = Modifier.height(MaterialTheme.padding.medium))
             AnimatedVisibility(
@@ -182,7 +176,8 @@ fun HomePage(
                         .padding(
                             vertical = MaterialTheme.padding.small,
                             horizontal = MaterialTheme.padding.extraSmall
-                        )
+                        ),
+                    state = listState,
                 ) {
                     item {
                         Spacer(modifier = Modifier.height(MaterialTheme.padding.small))
@@ -318,8 +313,7 @@ fun HomePagePreview() {
             repos = flowOf(
                 PagingData.from(listOf(Repo.fake(), Repo.fake()))
             ).collectAsLazyPagingItems(),
-            onUsernameChange = {},
-            onSearchClick = {},
+            onUiAction = {},
             onRepoClick = {},
         )
     }

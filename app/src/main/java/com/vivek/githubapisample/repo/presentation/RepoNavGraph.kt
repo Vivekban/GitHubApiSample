@@ -15,8 +15,10 @@ import com.vivek.githubapisample.common.presentation.NavigationRoute
 /** Route for repo graph */
 private const val REPO_GRAPH_ROUTE = "repo_graph"
 
+/** Repo name required by repo page */
 private const val NAME_ARG: String = "name"
 
+/** Repo owner required by repo page */
 private const val OWNER_ARG: String = "owner"
 
 /** Arguments required for repo page */

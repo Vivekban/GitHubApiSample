@@ -14,7 +14,7 @@ import com.vivek.githubapisample.theme.GitHubApiSampleTheme
  * @param modifier The modifier to apply to the loading view.
  */
 @Composable
-fun Loading(modifier: Modifier = Modifier) {
+fun Loader(modifier: Modifier = Modifier) {
     Box(modifier = modifier) {
         CircularProgressIndicator(Modifier.align(Alignment.Center))
     }
@@ -24,6 +24,6 @@ fun Loading(modifier: Modifier = Modifier) {
 @Composable
 fun LoadingPreview() {
     GitHubApiSampleTheme {
-        Loading()
+        Loader()
     }
 }

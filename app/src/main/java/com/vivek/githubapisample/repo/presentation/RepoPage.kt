@@ -43,7 +43,7 @@ import com.vivek.githubapisample.R
 import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.common.presentation.VoidCallback
 import com.vivek.githubapisample.common.presentation.component.Error
-import com.vivek.githubapisample.common.presentation.component.Loading
+import com.vivek.githubapisample.common.presentation.component.Loader
 import com.vivek.githubapisample.common.presentation.helper.DateTimeUtils
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.theme.GitHubApiSampleTheme
@@ -102,7 +102,7 @@ fun RepoPage(
                 .padding(MaterialTheme.padding.medium)
         ) {
             when (state.repo) {
-                is AppResult.Loading -> Loading(modifier = Modifier.fillMaxSize())
+                is AppResult.Loading -> Loader(modifier = Modifier.fillMaxSize())
                 is AppResult.Error -> Error(
                     title = stringResource(R.string.error_repo_fetch),
                     modifier = Modifier.fillMaxSize()

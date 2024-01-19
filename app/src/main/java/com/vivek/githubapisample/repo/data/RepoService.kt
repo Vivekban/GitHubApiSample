@@ -39,7 +39,7 @@ interface RepoService : RepoRemoteSource {
         @Path("name") name: String
     ): Result<RepoDto>
 
-    companion object {
+    companion object Factory {
         /**
          * Create a new instance of [RepoService] using the given [Retrofit] instance
          *
