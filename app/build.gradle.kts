@@ -153,7 +153,7 @@ fun getBaseUrl(): String? {
 configure<com.diffplug.gradle.spotless.SpotlessExtension> {
     kotlin {
         target("**/*.kt")
-        // by default the target is every '.kt' and '.kts` file in the java sourcesets
+
         ktfmt().kotlinlangStyle()    // has its own section below
 //        ktlint()   // has its own section below
 //        diktat()   // has its own section below
