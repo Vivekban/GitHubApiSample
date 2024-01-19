@@ -4,11 +4,17 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.vivek.githubapisample.common.presentation.NavigationRoute
 import com.vivek.githubapisample.repo.presentation.RepoArgs
 import com.vivek.githubapisample.repo.presentation.navigateToRepo
 
 /** Route for home graph */
 const val HOME_GRAPH_ROUTE = "home_graph"
+
+/**
+ * This route is used by Navigation Graph to show Home page
+ */
+object HomeRoute : NavigationRoute("home")
 
 /**
  * Creates the home graph which consist of [HomePage]
