@@ -1,6 +1,9 @@
 package com.vivek.githubapisample
 
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
+import android.os.StrictMode.VmPolicy
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.metrics.performance.JankStats
@@ -20,6 +23,9 @@ class MainActivity : ComponentActivity() {
     lateinit var jankStats: dagger.Lazy<JankStats>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (BuildConfig.DEBUG) {
+            enableStrictMode()
+        }
         super.onCreate(savedInstanceState)
         setContent {
             GitHubApiSampleTheme {
@@ -30,6 +36,24 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+    private fun enableStrictMode() {
+        // Enable strict mode to catch disk and network access on the main thread.
+        StrictMode.setThreadPolicy(
+            ThreadPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build()
+        )
+
+        // Enable strict mode to catch leaked objects.
+        StrictMode.setVmPolicy(
+            VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .penaltyLog()
+                .build()
+        )
     }
 
     override fun onResume() {
