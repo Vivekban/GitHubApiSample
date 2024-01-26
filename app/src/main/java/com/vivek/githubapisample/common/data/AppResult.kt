@@ -69,23 +69,26 @@ sealed class AppResult<out T> {
         }
 }
 
+/**
+ * Returns the encapsulated value if this instance represents [success][AppResult.isSuccess]
+ * or throws the
+ */
 fun <T> Throwable.toResult() = Result.failure<T>(this)
 
+/** Convert [Result] into [AppResult] */
 fun <T> Result<T>.toAppResult(): AppResult<T> = fold(
     onSuccess = { AppResult.Success(it) },
     onFailure = { AppResult.Error(it) }
 )
 
+/** Convert flow of [Result] into flow of [AppResult].
+ * It automatically emit [AppResult.Loading] as soon as flow starts
+ * and catches any downstream errors.
+ */
 fun <T> Flow<Result<T>>.asAppResultFlow(): Flow<AppResult<T>> {
     return this
-        .map {
-            it.toAppResult()
-        }
-        .onStart {
-            emit(AppResult.Loading)
-        }
-        .catch {
-            emit(AppResult.Error(it))
-        }
+        .map { it.toAppResult() }
+        .onStart { emit(AppResult.Loading) }
+        .catch { emit(AppResult.Error(it)) }
 }
 

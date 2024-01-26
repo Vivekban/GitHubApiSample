@@ -94,10 +94,11 @@ class HomeViewModel @Inject constructor(
         }
         // check if username is changed
         .distinctUntilChanged()
+        // fetch detail
         .map {
             getUserInfoUsecase(GetUserInfoUsecase.Param(it))
         }
-        // convert to AppResult - it will help to handle error and set initial state as loading.
+        // convert to AppResult - it will help to handle exception and set initial state as loading.
         .asAppResultFlow()
         // listen for error and emit message
         .onEach {
@@ -107,8 +108,8 @@ class HomeViewModel @Inject constructor(
         }
 
     /**
-     * Contains the user repos information based on [_userFlow]
-     * before searching it will sure valid user is there
+     * Contains the user repos information based on [_userFlow]. It fetches repos automatically if
+     * user name is changes and before searching it will ensure user is valid
      */
     @OptIn(ExperimentalCoroutinesApi::class)
     val reposByUserFlow: Flow<PagingData<Repo>> = _userFlow
@@ -150,7 +151,6 @@ class HomeViewModel @Inject constructor(
                 message = message,
                 isOnline = isOnline
             )
-
         }.stateIn(
             viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),

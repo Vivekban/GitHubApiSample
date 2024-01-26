@@ -99,8 +99,10 @@ fun HomePage(
     onUiAction: ValueCallback<HomeUiAction>,
     onRepoClick: ValueCallback<Repo>? = null,
 ) {
+    // For snack bar display
     val hostState = remember { SnackbarHostState() }
 
+    // It will move list to last scroll position in case of configuration changes.
     val listState = rememberLazyListState()
 
     val keyboardController = LocalSoftwareKeyboardController.current
