@@ -60,24 +60,26 @@ class HomeViewModel @Inject constructor(
     }
 
     /**
-     * Flow of messages that need to be shown to the user.
-     * These events need to be handled one time.
-     */
-    private val _messageFlow = MutableStateFlow<OneTimeEvent<UiString>?>(null)
-
-    /**
      * Flow of the username to be searched. It will be updated once user press search button.
      * Used [savedStateHandle] for persisting username between abrupt crash.
      */
     private val _usernameFlow = savedStateHandle.getStateFlow(USER_NAME_KEY, "")
 
     /**
-     * Contains ongoing text in username field, it will be updated once user type in username field
+     * Flow of messages that need to be shown to the user. Mainly error messages
+     * These events need to be handled one time so [OneTimeEvent] is used. This will ensure
+     * error message will be shown only once.
      */
-    private val _usernameSearchFlow = MutableStateFlow(savedStateHandle[USER_NAME_KEY] ?: "")
+    private val _messageFlow = MutableStateFlow<OneTimeEvent<UiString>?>(null)
 
     /**
-     * Contains the user information based on [_usernameFlow], It will be called again as soon as
+     * Contains ongoing text in username search field.
+     * Initialized with savedStateHandle value
+     */
+    private val _searchFlow = MutableStateFlow(savedStateHandle[USER_NAME_KEY] ?: "")
+
+    /**
+     * Fetch the user information based on [_usernameFlow], It will be called again as soon as
      * [_usernameFlow] updates.
      */
     private val _userFlow = _usernameFlow
@@ -132,12 +134,12 @@ class HomeViewModel @Inject constructor(
             .onStart { emit(true) }
 
     /**
-     * The flow of [HomeUiState] which is computed from [_usernameSearchFlow], [_userFlow], [_messageFlow]
+     * The flow of [HomeUiState] which is computed from [_searchFlow], [_userFlow], [_messageFlow]
      * and [_isOnlineFlow].
      */
     private val _uiState =
         combine(
-            _usernameSearchFlow,
+            _searchFlow,
             _userFlow,
             _messageFlow,
             _isOnlineFlow,
@@ -164,11 +166,10 @@ class HomeViewModel @Inject constructor(
      * @param uiAction The user action to handle.
      */
     fun handleUiAction(uiAction: HomeUiAction) {
-
         viewModelScope.launch {
             when (uiAction) {
                 is HomeUiAction.DoSearch -> savedStateHandle[USER_NAME_KEY] = uiAction.query
-                is HomeUiAction.UpdateUsernameSearch -> _usernameSearchFlow.emit(uiAction.query)
+                is HomeUiAction.UpdateUsernameSearch -> _searchFlow.emit(uiAction.query)
             }
         }
     }
