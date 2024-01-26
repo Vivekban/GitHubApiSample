@@ -116,6 +116,9 @@ dependencies {
     // Coil - for image loading
     implementation(libs.coil.compose)
 
+    // leak canary
+    debugImplementation(libs.leakcanary.android)
+
     // Unit Testing
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
