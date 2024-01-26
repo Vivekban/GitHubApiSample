@@ -97,6 +97,32 @@ structure in Android:
   feature architecture.
 - Ease of Onboarding: Simplifies onboarding of new developers with a clear feature structure.
 
+# Performance
+
+### Leak Canary
+
+- LeakCanary is a powerful tool for detecting memory leaks in Android applications. LeakCanary will
+  automatically detect and notify you of any memory leaks.
+- Find out more details [here](https://square.github.io/leakcanary/)
+
+### Compose compiler metrics
+
+Run the following command to get and analyse compose compiler metrics:
+
+```bash
+./gradlew assembleRelease -PcomposeCompilerMetrics=true -PcomposeCompilerReports=true
+```
+
+For more details
+read [here](https://developer.android.com/jetpack/compose/performance/stability/diagnose)
+
+The reports files will be added to [app/build/compose-reports](app/build/compose-reports). The
+metrics files will also be
+added to [app/build/compose_compiler](app/build/compose_compiler).
+
+For more information on Compose compiler metrics,
+see [this blog post](https://medium.com/androiddevelopers/jetpack-compose-stability-explained-79c10db270c8).
+
 # Testing
 
 Test-Driven Development (TDD): It is a software development approach where tests are written before
