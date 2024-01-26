@@ -23,7 +23,22 @@ class MainActivity : ComponentActivity() {
     lateinit var jankStats: dagger.Lazy<JankStats>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (BuildConfig.DEBUG) {
+            enableStrictMode()
+        }
+        super.onCreate(savedInstanceState)
+        setContent {
+            GitHubApiSampleTheme {
+                val navController = rememberNavController()
+                AppNavigationGraph(
+                    navController = navController,
+                    startDestination = HOME_GRAPH_ROUTE
+                )
+            }
+        }
+    }
 
+    private fun enableStrictMode() {
         // Enable strict mode to catch disk and network access on the main thread.
         StrictMode.setThreadPolicy(
             ThreadPolicy.Builder()
@@ -39,17 +54,6 @@ class MainActivity : ComponentActivity() {
                 .penaltyLog()
                 .build()
         )
-
-        super.onCreate(savedInstanceState)
-        setContent {
-            GitHubApiSampleTheme {
-                val navController = rememberNavController()
-                AppNavigationGraph(
-                    navController = navController,
-                    startDestination = HOME_GRAPH_ROUTE
-                )
-            }
-        }
     }
 
     override fun onResume() {
