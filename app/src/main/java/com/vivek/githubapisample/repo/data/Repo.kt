@@ -1,11 +1,13 @@
 package com.vivek.githubapisample.repo.data
 
+import androidx.compose.runtime.Immutable
 import com.vivek.githubapisample.user.data.User
 
 /**
  * A business data object that represents a Repo this object wil be available in domain/presentation layer
  * It act act as bridge between data layer and domain layer
  */
+@Immutable
 data class Repo(
 
     val name: String,
