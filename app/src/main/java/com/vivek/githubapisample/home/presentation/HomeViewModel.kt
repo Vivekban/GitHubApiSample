@@ -60,24 +60,26 @@ class HomeViewModel @Inject constructor(
     }
 
     /**
-     * Flow of messages that need to be shown to the user.
-     * These events need to be handled one time.
-     */
-    private val _messageFlow = MutableStateFlow<OneTimeEvent<UiString>?>(null)
-
-    /**
      * Flow of the username to be searched. It will be updated once user press search button.
      * Used [savedStateHandle] for persisting username between abrupt crash.
      */
     private val _usernameFlow = savedStateHandle.getStateFlow(USER_NAME_KEY, "")
 
     /**
-     * Contains ongoing text in username field, it will be updated once user type in username field
+     * Flow of messages that need to be shown to the user. Mainly error messages
+     * These events need to be handled one time so [OneTimeEvent] is used. This will ensure
+     * error message will be shown only once.
      */
-    private val _usernameSearchFlow = MutableStateFlow(savedStateHandle[USER_NAME_KEY] ?: "")
+    private val _messageFlow = MutableStateFlow<OneTimeEvent<UiString>?>(null)
 
     /**
-     * Contains the user information based on [_usernameFlow], It will be called again as soon as
+     * Contains ongoing text in username search field.
+     * Initialized with savedStateHandle value
+     */
+    private val _searchFlow = MutableStateFlow(savedStateHandle[USER_NAME_KEY] ?: "")
+
+    /**
+     * Fetch the user information based on [_usernameFlow], It will be called again as soon as
      * [_usernameFlow] updates.
      */
     private val _userFlow = _usernameFlow
@@ -92,10 +94,11 @@ class HomeViewModel @Inject constructor(
         }
         // check if username is changed
         .distinctUntilChanged()
+        // fetch detail
         .map {
             getUserInfoUsecase(GetUserInfoUsecase.Param(it))
         }
-        // convert to AppResult - it will help to handle error and set initial state as loading.
+        // convert to AppResult - it will help to handle exception and set initial state as loading.
         .asAppResultFlow()
         // listen for error and emit message
         .onEach {
@@ -105,8 +108,8 @@ class HomeViewModel @Inject constructor(
         }
 
     /**
-     * Contains the user repos information based on [_userFlow]
-     * before searching it will sure valid user is there
+     * Contains the user repos information based on [_userFlow]. It fetches repos automatically if
+     * user name is changes and before searching it will ensure user is valid
      */
     @OptIn(ExperimentalCoroutinesApi::class)
     val reposByUserFlow: Flow<PagingData<Repo>> = _userFlow
@@ -132,12 +135,12 @@ class HomeViewModel @Inject constructor(
             .onStart { emit(true) }
 
     /**
-     * The flow of [HomeUiState] which is computed from [_usernameSearchFlow], [_userFlow], [_messageFlow]
+     * The flow of [HomeUiState] which is computed from [_searchFlow], [_userFlow], [_messageFlow]
      * and [_isOnlineFlow].
      */
     private val _uiState =
         combine(
-            _usernameSearchFlow,
+            _searchFlow,
             _userFlow,
             _messageFlow,
             _isOnlineFlow,
@@ -148,7 +151,6 @@ class HomeViewModel @Inject constructor(
                 message = message,
                 isOnline = isOnline
             )
-
         }.stateIn(
             viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
@@ -164,11 +166,10 @@ class HomeViewModel @Inject constructor(
      * @param uiAction The user action to handle.
      */
     fun handleUiAction(uiAction: HomeUiAction) {
-
         viewModelScope.launch {
             when (uiAction) {
                 is HomeUiAction.DoSearch -> savedStateHandle[USER_NAME_KEY] = uiAction.query
-                is HomeUiAction.UpdateUsernameSearch -> _usernameSearchFlow.emit(uiAction.query)
+                is HomeUiAction.UpdateUsernameSearch -> _searchFlow.emit(uiAction.query)
             }
         }
     }

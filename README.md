@@ -10,20 +10,66 @@ An Android app which communicates with the public Github API in order to display
 
 ## Features
 
-- The app should accept a github user's id as input and display the specified user's avatar and
-  name.
-- For each public repository owned by the user, the name and description are shown in a scrollable
-  list.
-- When a repository is selected, user should go to a detail screen which should display the details
-  regarding that
-  specific repo.
-    - Display the total number of forks across all the user's repos on detail screen. If the total
-      number of forks exceed count 5000 then we want to have a star badge
+- **User Lookup**: Input a GitHub user's ID to see their avatar and name.
+- **Repository List**: Explore the user's public repositories through a scrollable list, showcasing
+  repository names and brief descriptions.
+- **Detailed Repository View**: Dive deeper into a specific repository by selecting it, revealing
+  comprehensive details on a dedicated detail screen.
 
-### Other Features
+### Additional Features
 
-- Network monitor: The app will let user know if it has working internet.
-- Pagination: Efficiently loads large amounts of data to improve the user experience.
+- **Pagination**: Seamlessly loads large amounts of data, ensuring a smoother user experience while
+  navigating through repositories.
+- **Network Monitor**: Stay informed about your internet connection status, with the app providing
+  clear feedback on whether it's connected or not.
+- **Animated Interaction**: Enjoy a visually engaging experience with animations that present user
+  and repository information in an intuitive and lively manner.
+
+## Highlights
+
+- Optimal for Interviews: The ideal sample app for take-home assignments during interviews,
+  showcasing industry-relevant practices.
+- Industry Standard Architecture: Built on Clean Architecture principles with MVVM and Repository
+  pattern, leveraging Jetpack Compose for a modern and efficient UI.
+- Reliability Matters: Over 25 meticulously crafted test cases covering Repositories, ViewModels,
+  and Composables to ensure robust and reliable performance.
+- Optimized Performance: Employed tools like Leak Canary, Strict Mode, Compose Compiler, and Jank
+  Stat to fine-tune the app for optimal performance.
+- Secure by Design: Prioritized security through sensible permission usage and implementation of
+  network configurations.
+- Crystal Clear Documentation: Achieving 100% documentation coverage for enhanced readability and
+  ease of understanding. Every component and aspect of the app is well-documented, making it
+  accessible for contributors and users alike.
+
+## Tech Stack
+
+- [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android
+  development.
+- [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - For concurrency and
+  asynchronous tasks
+- [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/) -
+  A asynchronous data stream that sequentially emits values and completes normally or with an
+  exception.
+- [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow) - A live data
+  replacement.
+- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) -
+  - [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for building
+    native UI
+  - [Material 3](https://m3.material.io/) - Modern design guide native UI theme.
+  - [Paging3](https://kotlinlang.org/) - Load and display small chunks of data at a time.
+  - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores
+    UI-related data that isn't destroyed on UI changes.
+  - [SavedStateHandle](https://developer.android.com/reference/androidx/lifecycle/SavedStateHandle) -
+    A handle to saved state passed down to androidx.lifecycle.ViewModel.
+  - [Navigation Components](https://developer.android.com/guide/navigation/navigation-getting-started) -
+    Navigate to different pages more easily.
+- [Dependency Injection](https://developer.android.com/training/dependency-injection)
+  - [Hilt](https://dagger.dev/hilt) - An easier way to incorporate Dagger DI into the Android
+    application.
+- [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
+- [Coil](https://coil-kt.github.io/coil/compose/) - An image loading library for Android backed by
+  Kotlin Coroutines.
+- [Mockk](https://mockk.io/) - For Mocking and Unit Testing
 
 # Architecture Patterns
 
@@ -142,46 +188,18 @@ This is used for presentation layer
 Testing an Android application typically involves a combination of different testing approaches to
 ensure the reliability, functionality, and performance of the app.
 
-| Testing Approach                     | Objective                                                                         | Tools                                   | Status      |
-|--------------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------|-------------|
-| **Unit Testing**                     | Verify individual units (methods/functions) in isolation.                         | JUnit, Mockito, Robolectric             | Done        |
-| **Integration Testing**              | Validate interaction between different components/modules.                        | AndroidJUnitRunner, Espresso            | Pending     |
-| **Functional Testing**               | Ensure app features work as intended from the user's perspective.                 | Espresso, UI Automator                  | Pending     |
-| **UI Testing**                       | Verify correctness of the app's user interface.                                   | Espresso, UI Automator                  | In progress |
-| **End-to-End (E2E) Testing**         | Simulate real user scenarios and test the entire application flow.                | Appium, Detox                           | Pending     |
-| **Performance Testing**              | Assess app performance, responsiveness, and resource usage.                       | Android Profiler, third-party tools     | Pending     |
-| **Security Testing**                 | Identify and address vulnerabilities that could compromise security.              | Static analysis tools, dynamic tools    | Pending     |
-| **Accessibility Testing**            | Ensure app accessibility for users with disabilities.                             | Android Accessibility Scanner, TalkBack | Pending     |
-| **Device and Configuration Testing** | Validate app behavior on different devices and configurations.                    | Firebase Test Lab, device emulators     | Pending     |
-| **Robustness Testing**               | Assess app's ability to handle unexpected inputs, errors, and adverse conditions. | -                                       | Pending     |
+| Testing Approach             | Objective                                                            | Tools                                   | Status  |
+|------------------------------|----------------------------------------------------------------------|-----------------------------------------|---------|
+| **Unit Testing**             | Verify individual units (methods/functions) in isolation.            | JUnit, Mockito, Robolectric             | Done    |
+| **Integration Testing**      | Validate interaction between different components/modules.           | AndroidJUnitRunner, Espresso            | Partial |
+| **Functional Testing**       | Ensure app features work as intended from the user's perspective.    | Espresso, UI Automator                  | Pending |
+| **UI Testing**               | Verify correctness of the app's user interface.                      | Espresso, UI Automator                  | Partial |
+| **End-to-End (E2E) Testing** | Simulate real user scenarios and test the entire application flow.   | Appium, Detox                           | Pending |
+| **Performance Testing**      | Assess app performance, responsiveness, and resource usage.          | Android Profiler, third-party tools     | Pending |
+| **Security Testing**         | Identify and address vulnerabilities that could compromise security. | Static analysis tools, dynamic tools    | Pending |
+| **Accessibility Testing**    | Ensure app accessibility for users with disabilities.                | Android Accessibility Scanner, TalkBack | Pending |
 
-## Built With
 
-- [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android
-  development.
-- [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - For concurrency and
-  asynchronous tasks
-- [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/) -
-  A asynchronous data stream that sequentially emits values and completes normally or with an
-  exception.
-- [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow) - A live data
-  replacement.
-- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) -
-    - [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for building
-      native UI
-    - [Material 3](https://m3.material.io/) - Modern design guide native UI theme.
-    - [Paging3](https://kotlinlang.org/) - Load and display small chunks of data at a time.
-    - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores
-      UI-related data that isn't destroyed on UI changes.
-    - [SavedStateHandle](https://developer.android.com/reference/androidx/lifecycle/SavedStateHandle) -
-      A handle to saved state passed down to androidx.lifecycle.ViewModel.
-    - [Navigation Components](https://developer.android.com/guide/navigation/navigation-getting-started) -
-      Navigate fragments more easily.
-- [Dependency Injection](https://developer.android.com/training/dependency-injection)
-    - [Hilt](https://dagger.dev/hilt) - An easier way to incorporate Dagger DI into the Android
-      application.
-- [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
-- [Mockito](https://github.com/mockito/mockito) - For Mocking and Unit Testing
 
 ## Installation Instruction
 
@@ -191,24 +209,12 @@ downloaded from [here](https://developer.android.com/studio/).
 - Start Android Studio
 - Run Application
 
-### Code Formatting
-
-We use ktfmt in conjunction with Spotless to maintain consistent and well-formatted Kotlin code
-throughout our project. Follow these instructions to set up and use ktfmt with Spotless:
-
-Formatting Code
-To format your Kotlin code using Spotless, run the following Gradle task:
-
-```bash
-./gradlew spotlessApply
-```
-
 ## Todo
 
 - [ ] Performance
     - [ ] Baseline Profile
-    - [ ] Enable compose compiler matrix
-    - [ ] Leak Canary
+    - [x] Enable compose compiler matrix
+    - [x] Leak Canary
 - [ ] Code Quality
     - [ ] Increase test coverage
     - [ ] Implement Git Hooks
@@ -220,3 +226,43 @@ To format your Kotlin code using Spotless, run the following Gradle task:
 
 - [Android App Architecture](https://developer.android.com/topic/architecture)
 - [Clean Architecture Uncle Bob](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+
+## Contribution Guidelines
+
+We appreciate and welcome contributions from the community! To ensure a smooth and collaborative
+development process, please follow these guidelines when contributing to the GitHub Explorer app:
+
+1. **Fork the Repository**: Fork the repository to your GitHub account and clone it to your local
+   machine.
+
+2. **Create a Branch**: Create a new branch for your feature or bug fix.
+   ```bash
+   git checkout -b feature/your-feature
+3. **Commit Guidelines**: Please follow a clear and concise commit message format. Ensure that your
+   commits are atomic and focus on a single task.
+4. **Pull Request (PR)**:Open a pull request against the main branch. Provide a detailed description
+   of your changes in the PR.
+5. **Code Review**: Be open to feedback and make necessary changes based on the code review.
+6. **Testing**: If applicable, ensure that your changes include appropriate tests and that existing
+   tests pass.
+7. **Documentation**: Update the README or any relevant documentation if your changes impact user or
+   developer instructions.
+
+Be Respectful: Respect the opinions and efforts of others. Keep discussions constructive and
+inclusive.
+
+## Unlicense
+
+This **GitHubApiSample** app is released under the Unlicense.
+
+```
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or distribute this software, either in source code form or as a compiled binary, for any purpose, commercial or non-commercial, and by any means.
+
+In jurisdictions that recognize copyright laws, the author or authors of this software dedicate any and all copyright interest in the software to the public domain. We make this dedication for the benefit of the public at large and to the detriment of our heirs and successors. We intend this dedication to be an overt act of relinquishment in perpetuity of all present and future rights to this software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org/>
+```
