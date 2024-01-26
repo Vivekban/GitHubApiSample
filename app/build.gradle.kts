@@ -119,6 +119,9 @@ dependencies {
     // leak canary
     debugImplementation(libs.leakcanary.android)
 
+    //Jank Stat
+    implementation(libs.metrics.performance)
+
     // Unit Testing
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
