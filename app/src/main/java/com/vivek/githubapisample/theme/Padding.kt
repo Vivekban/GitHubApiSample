@@ -20,7 +20,6 @@ class Padding(
     val extraSmall: Dp = PaddingDefaults.ExtraSmall,
     val small: Dp = PaddingDefaults.Small,
     val medium: Dp = PaddingDefaults.Medium,
-    val large: Dp = PaddingDefaults.Large,
 )
 
 /** Default values for padding. */
@@ -33,9 +32,6 @@ object PaddingDefaults {
 
     /** Medium sized padding */
     val Medium: Dp = 16.dp
-
-    /** Large sized padding */
-    val Large: Dp = 20.dp
 
 }
 
