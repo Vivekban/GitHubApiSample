@@ -9,6 +9,7 @@ junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso = "3.5.1"
 coroutines = "1.7.3"
+leakcanaryAndroid = "3.0-alpha-1"
 lifecycle = "2.6.2"
 activity-compose = "1.8.1"
 compose-bom = "2023.10.01"
@@ -32,6 +33,7 @@ spotless = "6.23.3"
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
