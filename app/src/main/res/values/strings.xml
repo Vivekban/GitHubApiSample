@@ -11,4 +11,9 @@
     <string name="no_internet_available">No internet available</string>
     <string name="back">Back</string>
     <string name="empty_response">Empty Response</string>
+
+    <string name="label_star_icon">"star repository "</string>
+    <string name="label_forks_icon">Forks</string>
+    <string name="label_last_updated_icon">Last Updated</string>
+    <string name="label_user_image">User image</string>
 </resources>
