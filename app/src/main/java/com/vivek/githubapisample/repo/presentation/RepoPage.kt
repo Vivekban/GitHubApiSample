@@ -147,7 +147,7 @@ fun RepoDetail(repo: Repo, modifier: Modifier = Modifier) {
                     placeholderVerticalAlign = PlaceholderVerticalAlign.Center
                 )
             ) {
-                Icon(Icons.Filled.Star, "", tint = Color.Red)
+                Icon(Icons.Filled.Star, stringResource(R.string.label_star_icon), tint = Color.Red)
             }
         )
     )
@@ -168,7 +168,7 @@ fun RepoDetail(repo: Repo, modifier: Modifier = Modifier) {
             Icon(
                 Icons.Default.Build,
                 modifier = Modifier.size(MaterialTheme.iconSize.small),
-                contentDescription = ""
+                contentDescription = stringResource(R.string.label_forks_icon)
             )
             Spacer(modifier = Modifier.width(MaterialTheme.padding.small))
             Text(
@@ -178,7 +178,7 @@ fun RepoDetail(repo: Repo, modifier: Modifier = Modifier) {
             Icon(
                 Icons.Default.DateRange,
                 modifier = Modifier.size(MaterialTheme.iconSize.small),
-                contentDescription = ""
+                contentDescription = stringResource(R.string.label_last_updated_icon)
             )
             Spacer(modifier = Modifier.width(MaterialTheme.padding.small))
             Text(

@@ -12,12 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.vivek.githubapisample.home.presentation.HomeRoute
+import com.vivek.githubapisample.R
 import com.vivek.githubapisample.theme.GitHubApiSampleTheme
 import com.vivek.githubapisample.theme.padding
 import com.vivek.githubapisample.user.data.User
@@ -39,7 +40,7 @@ fun UserInfo(
                 .data(user.avatarUrl)
                 .crossfade(true)
                 .build(),
-            contentDescription = HomeRoute.title,
+            contentDescription = stringResource(R.string.label_user_image),
             modifier = Modifier
                 .size(120.dp)
                 .testTag("image")
