@@ -4,11 +4,16 @@
     <string name="search">Search</string>
     <string name="placeholder_user_id">Enter a github user id</string>
     <string name="repo_detail">Repo Detail</string>
+
+    <string name="error_fetching_network_status">Error fetching network status</string>
+    <string name="error_fetching_repositories">Error fetching repositories</string>
     <string name="error_repo_fetch">Failed to load repo</string>
     <string name="error_no_network">No network available</string>
     <string name="error_unknown">Something went wrong</string>
     <string name="error_not_found">Not found</string>
+
     <string name="no_internet_available">No internet available</string>
+
     <string name="back">Back</string>
     <string name="empty_response">Empty Response</string>
 

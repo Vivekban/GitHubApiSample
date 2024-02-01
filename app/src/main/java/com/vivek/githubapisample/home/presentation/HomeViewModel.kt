@@ -6,17 +6,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.vivek.githubapisample.R
 import com.vivek.githubapisample.common.data.AppResult
 import com.vivek.githubapisample.common.data.asAppResultFlow
 import com.vivek.githubapisample.common.presentation.OneTimeEvent
 import com.vivek.githubapisample.common.presentation.UiString
 import com.vivek.githubapisample.common.presentation.helper.NetworkMonitor
 import com.vivek.githubapisample.common.presentation.helper.uiString
+import com.vivek.githubapisample.common.presentation.uiString
 import com.vivek.githubapisample.repo.data.Repo
 import com.vivek.githubapisample.repo.domain.GetReposByUsernameUsecase
 import com.vivek.githubapisample.user.data.User
 import com.vivek.githubapisample.user.domain.GetUserInfoUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,6 +31,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -125,13 +129,21 @@ class HomeViewModel @Inject constructor(
                     it.login ?: _usernameFlow.value
                 ))
             )
-        }.cachedIn(viewModelScope)
+        }.catch {
+            emit(PagingData.empty())
+            _messageFlow.emit(OneTimeEvent(R.string.error_fetching_repositories.uiString))
+        }
+        .cachedIn(viewModelScope)
 
     /** Tells if device is online or not */
     private val _isOnlineFlow =
         networkMonitor.isOnline
             .distinctUntilChanged()
-            .catch { emit(false) }
+            .flowOn(Dispatchers.IO)
+            .catch {
+                _messageFlow.emit(OneTimeEvent(R.string.error_fetching_network_status.uiString))
+                emit(false)
+            }
             .onStart { emit(true) }
 
     /**
