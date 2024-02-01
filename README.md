@@ -145,6 +145,17 @@ structure in Android:
 
 # Performance
 
+### StrictMode
+
+StrictMode is a developer tool that helps you identify and fix violations of good development
+practices.
+
+- Network Operations on Main Thread: StrictMode detects network operations (e.g., HTTP requests) on
+  the main thread.
+- StrictMode detects disk I/O operations (e.g., file read/write) on the main thread.
+- Cleartext Network Traffic (HTTP): StrictMode detects cleartext network traffic, which can pose a
+  security risk.
+
 ### Leak Canary
 
 - LeakCanary is a powerful tool for detecting memory leaks in Android applications. LeakCanary will
@@ -162,12 +173,22 @@ Run the following command to get and analyse compose compiler metrics:
 For more details
 read [here](https://developer.android.com/jetpack/compose/performance/stability/diagnose)
 
-The reports files will be added to [app/build/compose-reports](app/build/compose-reports). The
-metrics files will also be
-added to [app/build/compose_compiler](app/build/compose_compiler).
+The reports files will be added to [app/build/compose-reports](app/build/compose_compiler).
 
 For more information on Compose compiler metrics,
 see [this blog post](https://medium.com/androiddevelopers/jetpack-compose-stability-explained-79c10db270c8).
+
+# Security
+
+- **Secure Communication**: Used HTTPS for all network communications to encrypt data in transit.
+- **Network Security Configuration**: Implemented a network security configuration which restricts
+  outgoing network calls, permitting communication exclusively with the github.com domain. This
+  ensures a more controlled and secure network environment for the application.
+- **Dynamic Base URL**: Elevated security by making the base URL a configurable build parameter.
+  This dynamic approach enhances flexibility and allows for secure handling of different
+  environments, reducing the risk associated with hardcoding sensitive information.
+- **Code Obfuscation**: Utilized code obfuscation tools (e.g., ProGuard) to obfuscate and shrink the
+  size of your code. This makes reverse engineering more challenging for potential attackers.
 
 # Testing
 
@@ -188,16 +209,15 @@ This is used for presentation layer
 Testing an Android application typically involves a combination of different testing approaches to
 ensure the reliability, functionality, and performance of the app.
 
-| Testing Approach             | Objective                                                            | Tools                                   | Status  |
-|------------------------------|----------------------------------------------------------------------|-----------------------------------------|---------|
-| **Unit Testing**             | Verify individual units (methods/functions) in isolation.            | JUnit, Mockito, Robolectric             | Done    |
-| **Integration Testing**      | Validate interaction between different components/modules.           | AndroidJUnitRunner, Espresso            | Partial |
-| **Functional Testing**       | Ensure app features work as intended from the user's perspective.    | Espresso, UI Automator                  | Pending |
-| **UI Testing**               | Verify correctness of the app's user interface.                      | Espresso, UI Automator                  | Partial |
-| **End-to-End (E2E) Testing** | Simulate real user scenarios and test the entire application flow.   | Appium, Detox                           | Pending |
-| **Performance Testing**      | Assess app performance, responsiveness, and resource usage.          | Android Profiler, third-party tools     | Pending |
-| **Security Testing**         | Identify and address vulnerabilities that could compromise security. | Static analysis tools, dynamic tools    | Pending |
-| **Accessibility Testing**    | Ensure app accessibility for users with disabilities.                | Android Accessibility Scanner, TalkBack | Pending |
+| Testing Approach          | Objective                                                            | Tools                                   | Status  |
+|---------------------------|----------------------------------------------------------------------|-----------------------------------------|---------|
+| **Unit Testing**          | Verify individual units (methods/functions) in isolation.            | JUnit, Mockito, Robolectric             | Done    |
+| **Integration Testing**   | Validate interaction between different components/modules.           | AndroidJUnitRunner, Espresso            | Partial |
+| **Functional Testing**    | Ensure app features work as intended from the user's perspective.    | Espresso, UI Automator                  | Partial |
+| **UI Testing**            | Verify correctness of the app's user interface.                      | Espresso, UI Automator                  | Partial |
+| **Performance Testing**   | Assess app performance, responsiveness, and resource usage.          | Android Profiler, third-party tools     | Pending |
+| **Security Testing**      | Identify and address vulnerabilities that could compromise security. | Static analysis tools, dynamic tools    | Done    |
+| **Accessibility Testing** | Ensure app accessibility for users with disabilities.                | Android Accessibility Scanner, TalkBack | Pending |
 
 
 
@@ -251,7 +271,7 @@ development process, please follow these guidelines when contributing to the Git
 Be Respectful: Respect the opinions and efforts of others. Keep discussions constructive and
 inclusive.
 
-## Unlicense
+## Unlicensed
 
 This **GitHubApiSample** app is released under the Unlicense.
 
